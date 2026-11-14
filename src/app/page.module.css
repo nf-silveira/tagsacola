@@ -44,6 +44,14 @@
   color: var(--ef-yellow);
 }
 
+.subtitle {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--ef-muted);
+}
+
 .slogan {
   margin: 0;
   font-size: 1rem;

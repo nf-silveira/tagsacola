@@ -14,6 +14,8 @@ export default function Home() {
           Tag <span className={styles.highlight}>Sacola</span>
         </h1>
 
+        <p className={styles.subtitle}>etiqueta fácil</p>
+
         <p className={styles.slogan}>
           Sua solução de etiquetas sempre que precisar!
         </p>
