@@ -7,7 +7,7 @@
 ![Zod](https://img.shields.io/badge/Zod-4-3E67B1)
 ![License](https://img.shields.io/badge/license-MIT-16B879)
 
-> Sua solução de etiquetas sempre que precisar!
+> Sua solução de etiquetas sempre que tiver B.O na operação 🚨
 
 O **Tag Sacola** é uma aplicação web operacional para criar, editar, visualizar e imprimir etiquetas de identificação de sacolas na separação de compras de supermercado. Foi pensada como alternativa independente ao sistema principal de separação de pedidos, principalmente em situações de falha técnica: sem login, sem integrações externas e com funcionamento offline.
 

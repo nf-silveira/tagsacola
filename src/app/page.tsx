@@ -17,7 +17,7 @@ export default function Home() {
         <p className={styles.subtitle}>etiqueta fácil</p>
 
         <p className={styles.slogan}>
-          Sua solução de etiquetas sempre que precisar!
+          Sua solução de etiquetas sempre que tiver B.O na operação 🚨
         </p>
 
         <p className={styles.description}>

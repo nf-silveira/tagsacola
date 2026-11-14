@@ -6,7 +6,7 @@ import '@/styles/globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Tag Sacola — Sua solução de etiquetas sempre que precisar!',
+    default: 'Tag Sacola — Sua solução de etiquetas sempre que tiver B.O na operação 🚨',
     template: '%s | Tag Sacola',
   },
   description:
