@@ -104,8 +104,8 @@ Requisitos: **Node.js 20+** e npm.
 
 ```bash
 # clonar
-git clone https://github.com/nf-silveira/etiqueta-facil.git
-cd etiqueta-facil
+git clone https://github.com/nf-silveira/tagsacola.git
+cd tagsacola
 
 # instalar dependências
 npm install
