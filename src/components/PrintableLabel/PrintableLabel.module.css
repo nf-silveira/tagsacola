@@ -115,7 +115,15 @@
   font-weight: 700;
   color: #fff;
   background-color: #000;
+  border: 0.3mm solid transparent;
   border-radius: 0.8mm;
+}
+
+/* Secas e Pack saem vazados, com texto preto e contorno preto. */
+.outlinedChip {
+  color: #000;
+  background-color: #fff;
+  border-color: #000;
 }
 
 .chipIcon {

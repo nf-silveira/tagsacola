@@ -87,9 +87,13 @@ export function PrintableLabel({ data, position, total, settings }: PrintableLab
         <footer className={styles.summary}>
           {filledCategories.map((category) => {
             const Icon = CATEGORY_ICONS[category]
+            const isOutlined = category === 'dry' || category === 'pack'
 
             return (
-              <span key={category} className={styles.chip}>
+              <span
+                key={category}
+                className={`${styles.chip} ${isOutlined ? styles.outlinedChip : ''}`}
+              >
                 <Icon className={styles.chipIcon} aria-hidden="true" />
                 {formatQuantityLabel(category, data.quantities[category])}
               </span>
