@@ -1,0 +1,110 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.7rem 0.5rem 0.6rem;
+  text-align: center;
+  background-color: var(--category-bg);
+  border: 1px solid var(--category-border);
+  border-radius: var(--ef-radius-md);
+}
+
+.dry {
+  --category-color: var(--ef-blue);
+  --category-bg: rgb(45 127 249 / 8%);
+  --category-border: rgb(45 127 249 / 25%);
+}
+
+.refrigerated {
+  --category-color: var(--ef-green);
+  --category-bg: rgb(22 184 121 / 8%);
+  --category-border: rgb(22 184 121 / 25%);
+}
+
+.frozen {
+  --category-color: var(--ef-orange);
+  --category-bg: rgb(245 122 38 / 8%);
+  --category-border: rgb(245 122 38 / 25%);
+}
+
+.pack {
+  --category-color: var(--ef-purple);
+  --category-bg: rgb(89 64 200 / 8%);
+  --category-border: rgb(89 64 200 / 25%);
+}
+
+.icon {
+  display: inline-flex;
+  color: var(--category-color);
+}
+
+.name {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ef-text);
+}
+
+.quantity {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--ef-text);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.15rem;
+}
+
+.stepButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  color: var(--ef-text);
+  cursor: pointer;
+  background-color: var(--ef-surface);
+  border: 1px solid var(--ef-border);
+  border-radius: var(--ef-radius-sm);
+  transition: border-color 0.2s ease;
+}
+
+.stepButton:hover:not(:disabled) {
+  border-color: var(--category-color);
+}
+
+.stepButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.input {
+  width: 2.6rem;
+  padding: 0.15rem 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--ef-text);
+  background-color: var(--ef-surface);
+  border: 1px solid var(--ef-border);
+  border-radius: var(--ef-radius-sm);
+  appearance: textfield;
+}
+
+.input:focus-visible {
+  border-color: var(--category-color);
+  outline-offset: 1px;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}

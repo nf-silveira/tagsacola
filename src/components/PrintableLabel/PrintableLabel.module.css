@@ -1,0 +1,124 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 2mm;
+  box-sizing: border-box;
+  overflow: hidden;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #000;
+  background-color: #fff;
+  border: 0.4mm solid #000;
+}
+
+.header {
+  display: flex;
+  align-items: stretch;
+}
+
+.header > * + * {
+  border-left: 0.3mm solid #000;
+}
+
+.purchaseCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5mm 2.5mm;
+  color: #fff;
+  background-color: #000;
+}
+
+.purchaseNumber {
+  font-size: 8mm;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.2mm;
+}
+
+.cell {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.6mm;
+  padding: 1.5mm 2mm;
+  min-width: 0;
+}
+
+.cellLabel {
+  font-size: 2.2mm;
+  font-weight: 600;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.1mm;
+}
+
+.cellValue {
+  font-size: 3.6mm;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.body {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2mm;
+}
+
+.customer {
+  display: flex;
+  flex-direction: column;
+  gap: 1mm;
+  min-width: 0;
+}
+
+.customerName {
+  font-size: 5.2mm;
+  font-weight: 800;
+  line-height: 1.05;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.bags {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1mm;
+  text-align: right;
+}
+
+.bagsValue {
+  display: inline-flex;
+  align-items: center;
+  gap: 1mm;
+  font-size: 4mm;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2mm;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 1mm;
+  padding: 1mm 1.6mm;
+  font-size: 3mm;
+  font-weight: 700;
+  color: #fff;
+  background-color: #000;
+  border-radius: 0.8mm;
+}
+
+.chipIcon {
+  width: 3.4mm;
+  height: 3.4mm;
+}

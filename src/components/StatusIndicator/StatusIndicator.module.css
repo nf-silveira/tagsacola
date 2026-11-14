@@ -1,0 +1,19 @@
+.indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #fff;
+  border-radius: var(--ef-radius-pill);
+  white-space: nowrap;
+}
+
+.online {
+  background-color: var(--ef-success);
+}
+
+.offline {
+  background-color: rgb(255 255 255 / 22%);
+}

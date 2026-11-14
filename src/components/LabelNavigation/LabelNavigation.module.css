@@ -1,0 +1,40 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.navButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  color: var(--ef-text);
+  cursor: pointer;
+  background-color: var(--ef-surface);
+  border: 1px solid var(--ef-border);
+  border-radius: var(--ef-radius-sm);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.navButton:hover:not(:disabled) {
+  color: var(--ef-purple);
+  border-color: var(--ef-purple);
+}
+
+.navButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.counter {
+  margin: 0 0.35rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ef-text);
+  white-space: nowrap;
+}

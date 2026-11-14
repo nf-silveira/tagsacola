@@ -81,11 +81,11 @@ Sem Tailwind, sem Lucide, sem bibliotecas pagas e sem APIs externas.
 ├─ public/                # Arquivos estáticos (favicon, ícones da PWA)
 └─ src/
    ├─ app/                # App Router: layout raiz, página principal e estilos da página
+   ├─ components/         # Componentes de UI, cada um com seu CSS Module
    ├─ domain/             # Contratos e regras puras do negócio (etiquetas, impressão)
-   ├─ styles/             # Tokens de design, base do HTML e tema do Bootstrap
-   ├─ components/         # Componentes de UI (cada um com seu CSS Module) — próximas etapas
-   ├─ hooks/              # Estado e comportamento reutilizável — próximas etapas
-   └─ services/           # Persistência e impressão — próximas etapas
+   ├─ hooks/              # Estado reutilizável (formulário, histórico, impressão, conexão)
+   ├─ services/           # Persistência local e impressão
+   └─ styles/             # Tokens, base do HTML, tema do Bootstrap e CSS de impressão
 ```
 
 Convenções adotadas:
@@ -160,13 +160,13 @@ O projeto é construído em etapas, cada uma verificável por conta própria.
 | Etapa | Escopo | Status |
 | --- | --- | --- |
 | 0 | Fundação: stack, design tokens, contratos do domínio | ✅ Concluída |
-| 1 | Interface: cabeçalho, área operacional, histórico | ⏳ Próxima |
-| 2 | Formulário: campos opcionais, categorias, total automático | ⏳ Pendente |
-| 3 | Etiqueta: HTML/CSS e pré-visualização dinâmica com navegação | ⏳ Pendente |
-| 4 | Impressão: dimensões em mm, CSS de impressão e etiqueta de teste | ⏳ Pendente |
-| 5 | Configurações: modelos, personalização e persistência | ⏳ Pendente |
-| 6 | Histórico: salvar, editar, duplicar, excluir e reimprimir | ⏳ Pendente |
-| 7 | Offline: PWA com Serwist e indicador de conexão | ⏳ Pendente |
+| 1 | Interface: cabeçalho, área operacional, histórico | ✅ Concluída |
+| 2 | Formulário: campos opcionais, categorias, total automático | ✅ Concluída |
+| 3 | Etiqueta: HTML/CSS e pré-visualização dinâmica com navegação | ✅ Concluída |
+| 4 | Impressão: dimensões em mm, CSS de impressão e etiqueta de teste | ✅ Concluída (simulação local) |
+| 5 | Configurações: modelos, personalização e persistência | ✅ Concluída |
+| 6 | Histórico: salvar, editar, duplicar, excluir e reimprimir | ✅ Concluída |
+| 7 | Offline: PWA com Serwist | ⏳ Pendente |
 | 8 | Testes: automatizados, visuais e validação física | ⏳ Pendente |
 
 ---

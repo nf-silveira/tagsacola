@@ -1,0 +1,143 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--ef-surface);
+  border-radius: var(--ef-radius-lg);
+  box-shadow: var(--ef-shadow-sm);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1.1rem;
+  color: var(--ef-text);
+  background-color: rgb(89 64 200 / 6%);
+  border-bottom: 1px solid var(--ef-border);
+  border-radius: var(--ef-radius-lg) var(--ef-radius-lg) 0 0;
+}
+
+.panelTitle {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.panelBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1rem 1.1rem 1.1rem;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.presetField {
+  grid-column: 1 / -1;
+}
+
+.fieldLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ef-text);
+}
+
+.input {
+  font-size: 0.875rem;
+}
+
+.input:focus {
+  border-color: var(--ef-purple);
+  box-shadow: 0 0 0 0.2rem rgb(89 64 200 / 18%);
+}
+
+.error {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ef-danger);
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--ef-muted);
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.primaryButton,
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: var(--ef-radius-md);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.primaryButton {
+  color: #fff;
+  background-color: var(--ef-purple);
+  border: 1px solid var(--ef-purple);
+}
+
+.primaryButton:hover:not(:disabled) {
+  background-color: var(--ef-purple-dark);
+  border-color: var(--ef-purple-dark);
+}
+
+.primaryButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.secondaryButton {
+  color: var(--ef-text);
+  background-color: var(--ef-surface);
+  border: 1px solid var(--ef-border);
+}
+
+.secondaryButton:hover {
+  color: var(--ef-purple);
+  border-color: var(--ef-purple);
+}
+
+.feedback {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ef-success);
+}
+
+@media (max-width: 480px) {
+  .fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .actions {
+    grid-template-columns: 1fr;
+  }
+}

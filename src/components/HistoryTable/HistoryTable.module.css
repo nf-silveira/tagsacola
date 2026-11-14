@@ -1,0 +1,140 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--ef-surface);
+  border-radius: var(--ef-radius-lg);
+  box-shadow: var(--ef-shadow-sm);
+  overflow: hidden;
+}
+
+.panelHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.1rem;
+  color: var(--ef-purple);
+  background-color: rgb(89 64 200 / 9%);
+  border-bottom: 1px solid var(--ef-border);
+}
+
+.panelTitle {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.clearButton {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ef-danger);
+  cursor: pointer;
+  background-color: var(--ef-surface);
+  border: 1px solid var(--ef-border);
+  border-radius: var(--ef-radius-sm);
+  transition: border-color 0.2s ease;
+}
+
+.clearButton:hover {
+  border-color: var(--ef-danger);
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  font-size: 0.875rem;
+  color: var(--ef-text);
+}
+
+.table thead th {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ef-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom-color: var(--ef-border);
+  white-space: nowrap;
+}
+
+.table td {
+  border-bottom-color: var(--ef-border);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.purchaseNumber {
+  font-weight: 700;
+  color: var(--ef-purple);
+}
+
+.total {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.actionsColumn {
+  text-align: right;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.35rem;
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: var(--ef-radius-sm);
+  transition: filter 0.2s ease;
+  white-space: nowrap;
+}
+
+.actionButton:hover {
+  filter: brightness(0.92);
+}
+
+.reprintButton {
+  background-color: var(--ef-purple);
+}
+
+.editButton {
+  background-color: var(--ef-blue);
+}
+
+.duplicateButton {
+  color: var(--ef-text);
+  background-color: var(--ef-surface);
+  border-color: var(--ef-border);
+}
+
+.duplicateButton:hover {
+  border-color: var(--ef-purple);
+  color: var(--ef-purple);
+}
+
+.deleteButton {
+  background-color: var(--ef-danger);
+}
+
+.emptyState {
+  margin: 0;
+  padding: 1.75rem 1.1rem;
+  font-size: 0.875rem;
+  text-align: center;
+  color: var(--ef-muted);
+}

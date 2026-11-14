@@ -1,68 +1,48 @@
-.screen {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100dvh;
-  padding: var(--ef-space-5);
-  background: linear-gradient(160deg, var(--ef-purple) 0%, var(--ef-purple-dark) 100%);
-}
-
-.card {
+.shell {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--ef-space-3);
+  min-height: 100dvh;
+}
+
+.main {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 1.25rem;
   width: 100%;
-  max-width: 34rem;
-  padding: var(--ef-space-6) var(--ef-space-5);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(1rem, 3vw, 1.75rem);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.footer {
+  padding: 0.9rem 1rem;
   text-align: center;
   background-color: var(--ef-surface);
-  border-radius: var(--ef-radius-lg);
-  box-shadow: var(--ef-shadow-md);
+  border-top: 1px solid var(--ef-border);
 }
 
-.iconBadge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  color: var(--ef-purple);
-  background-color: rgb(89 64 200 / 10%);
-  border-radius: var(--ef-radius-pill);
-}
-
-.title {
+.footer p {
   margin: 0;
-  font-size: clamp(1.75rem, 4vw, 2.25rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--ef-purple);
-}
-
-.highlight {
-  color: var(--ef-yellow);
-}
-
-.subtitle {
-  margin: 0;
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-size: 0.8125rem;
   color: var(--ef-muted);
 }
 
-.slogan {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--ef-text);
-}
-
-.description {
-  max-width: 28rem;
-  margin: 0;
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  color: var(--ef-muted);
+@media (max-width: 992px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
 }

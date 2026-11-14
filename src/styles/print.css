@@ -1,0 +1,45 @@
+/*
+ * Impressão das etiquetas.
+ *
+ * A área `.print-area` só aparece no papel; o restante da aplicação (`app-shell`)
+ * é ocultado. Cada etiqueta é impressa em um bloco próprio, com quebra de página
+ * entre elas, para o corte automático da impressora.
+ */
+
+.print-area {
+  display: none;
+}
+
+@media print {
+  @page {
+    margin: 0;
+  }
+
+  html,
+  body {
+    background-color: #fff;
+  }
+
+  .app-shell {
+    display: none !important;
+  }
+
+  .print-area {
+    display: block !important;
+  }
+
+  .print-area * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print-area > * {
+    break-inside: avoid;
+    break-after: page;
+    margin: 0;
+  }
+
+  .print-area > *:last-child {
+    break-after: auto;
+  }
+}
