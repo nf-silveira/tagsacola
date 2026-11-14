@@ -6,12 +6,12 @@ import '@/styles/globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'EtiquetaFácil — Sua solução de etiquetas sempre que precisar!',
-    template: '%s | EtiquetaFácil',
+    default: 'Tag Sacola — Sua solução de etiquetas sempre que precisar!',
+    template: '%s | Tag Sacola',
   },
   description:
     'Crie, visualize e imprima etiquetas de identificação de sacolas para a separação de compras do supermercado, com funcionamento offline.',
-  applicationName: 'EtiquetaFácil',
+  applicationName: 'Tag Sacola',
   icons: {
     icon: '/favicon.svg',
   },

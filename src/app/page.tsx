@@ -11,7 +11,7 @@ export default function Home() {
         </span>
 
         <h1 className={styles.title}>
-          Etiqueta<span className={styles.highlight}>Fácil</span>
+          Tag <span className={styles.highlight}>Sacola</span>
         </h1>
 
         <p className={styles.slogan}>

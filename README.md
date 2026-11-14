@@ -1,4 +1,4 @@
-# EtiquetaFácil
+# Tag Sacola
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-087EA4?logo=react&logoColor=white)
@@ -9,7 +9,7 @@
 
 > Sua solução de etiquetas sempre que precisar!
 
-O **EtiquetaFácil** é uma aplicação web operacional para criar, editar, visualizar e imprimir etiquetas de identificação de sacolas na separação de compras de supermercado. Foi pensada como alternativa independente ao sistema principal de separação de pedidos, principalmente em situações de falha técnica: sem login, sem integrações externas e com funcionamento offline.
+O **Tag Sacola** é uma aplicação web operacional para criar, editar, visualizar e imprimir etiquetas de identificação de sacolas na separação de compras de supermercado. Foi pensada como alternativa independente ao sistema principal de separação de pedidos, principalmente em situações de falha técnica: sem login, sem integrações externas e com funcionamento offline.
 
 O foco não é gestão de pedidos, e sim velocidade, poucos cliques, confiabilidade e uma etiqueta que sai exatamente como foi pré-visualizada.
 
