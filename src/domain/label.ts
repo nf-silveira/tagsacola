@@ -112,6 +112,24 @@ export function formatQuantityLabel(category: BagCategory, quantity: number): st
   return `${quantity} ${quantity === 1 ? names.singular : names.plural}`
 }
 
+function padTwoDigits(value: number): string {
+  return String(value).padStart(2, '0')
+}
+
+/** Valor para `<input type="date">` (`yyyy-mm-dd`) a partir da data local. */
+export function formatDateInputValue(date: Date): string {
+  const year = date.getFullYear()
+  const month = padTwoDigits(date.getMonth() + 1)
+  const day = padTwoDigits(date.getDate())
+
+  return `${year}-${month}-${day}`
+}
+
+/** Valor para `<input type="time">` (`HH:mm`) a partir do horário local. */
+export function formatTimeInputValue(date: Date): string {
+  return `${padTwoDigits(date.getHours())}:${padTwoDigits(date.getMinutes())}`
+}
+
 /** "14/11 - 07:45" | "14/11" | "07:45" | null, conforme o que foi informado. */
 export function formatLabelDateTime(date: string | null, time: string | null): string | null {
   const datePart = date ? date.slice(8, 10) + '/' + date.slice(5, 7) : null

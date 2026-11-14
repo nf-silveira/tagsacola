@@ -66,6 +66,13 @@
   box-shadow: 0 0 0 0.2rem rgb(89 64 200 / 18%);
 }
 
+.hint {
+  margin: -0.35rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--ef-muted);
+}
+
 .delivery {
   display: flex;
   flex-direction: column;

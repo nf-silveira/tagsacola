@@ -107,6 +107,11 @@ export function OrderForm({
           </label>
         </div>
 
+        <p className={styles.hint}>
+          Data e horário são preenchidos com a hora deste computador. Edite os
+          campos se precisar.
+        </p>
+
         <fieldset className={styles.delivery}>
           <legend className={styles.fieldLabel}>
             Modalidade de entrega <em className={styles.optional}>(opcional)</em>
