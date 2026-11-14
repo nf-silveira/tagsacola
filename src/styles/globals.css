@@ -1,0 +1,81 @@
+/*
+ * Estilos globais do EtiquetaFácil.
+ *
+ * Este arquivo é reservado para: design tokens (cores, tipografia, espaçamentos,
+ * raios e sombras), reset/base do HTML e personalização das variáveis do
+ * Bootstrap. Estilos de componentes vivem em seus próprios CSS Modules.
+ */
+
+:root {
+  /* Marca */
+  --ef-purple: #5940c8;
+  --ef-purple-dark: #4032a8;
+  --ef-yellow: #ffca45;
+
+  /* Superfícies e texto */
+  --ef-bg: #f7f7fc;
+  --ef-surface: #ffffff;
+  --ef-border: #e6e5f2;
+  --ef-text: #17183a;
+  --ef-muted: #77788b;
+
+  /* Estados e categorias */
+  --ef-success: #16b879;
+  --ef-danger: #e5484d;
+  --ef-blue: #2d7ff9;
+  --ef-green: #16b879;
+  --ef-orange: #f57a26;
+
+  /* Tipografia */
+  --ef-font-sans:
+    'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Formas */
+  --ef-radius-sm: 8px;
+  --ef-radius-md: 12px;
+  --ef-radius-lg: 18px;
+  --ef-radius-pill: 999px;
+
+  /* Sombras */
+  --ef-shadow-sm: 0 1px 2px rgb(23 24 58 / 6%), 0 1px 3px rgb(23 24 58 / 8%);
+  --ef-shadow-md: 0 12px 28px -16px rgb(23 24 58 / 32%);
+
+  /* Escala de espaçamento (múltiplos de 4px) */
+  --ef-space-1: 0.25rem;
+  --ef-space-2: 0.5rem;
+  --ef-space-3: 0.75rem;
+  --ef-space-4: 1rem;
+  --ef-space-5: 1.5rem;
+  --ef-space-6: 2rem;
+
+  /* Personalização do tema Bootstrap */
+  --bs-body-bg: var(--ef-bg);
+  --bs-body-color: var(--ef-text);
+  --bs-body-font-family: var(--ef-font-sans);
+  --bs-border-color: var(--ef-border);
+  --bs-border-radius: var(--ef-radius-md);
+  --bs-border-radius-sm: var(--ef-radius-sm);
+  --bs-border-radius-lg: var(--ef-radius-lg);
+  --bs-link-color: var(--ef-purple);
+  --bs-link-hover-color: var(--ef-purple-dark);
+  --bs-primary: var(--ef-purple);
+  --bs-focus-ring-color: rgb(89 64 200 / 25%);
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  background-color: var(--ef-bg);
+  color: var(--ef-text);
+  font-family: var(--ef-font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ef-purple);
+  outline-offset: 2px;
+}

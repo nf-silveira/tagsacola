@@ -1,2 +1,191 @@
-# etiqueta-facil
-Uma aplicação web independente para criação, edição e impressão de etiquetas de identificação de sacolas, com dimensões personalizáveis e funcionamento sem banco de dados.
+# EtiquetaFácil
+
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-19-087EA4?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white)
+![Zod](https://img.shields.io/badge/Zod-4-3E67B1)
+![License](https://img.shields.io/badge/license-MIT-16B879)
+
+> Sua solução de etiquetas sempre que precisar!
+
+O **EtiquetaFácil** é uma aplicação web operacional para criar, editar, visualizar e imprimir etiquetas de identificação de sacolas na separação de compras de supermercado. Foi pensada como alternativa independente ao sistema principal de separação de pedidos, principalmente em situações de falha técnica: sem login, sem integrações externas e com funcionamento offline.
+
+O foco não é gestão de pedidos, e sim velocidade, poucos cliques, confiabilidade e uma etiqueta que sai exatamente como foi pré-visualizada.
+
+---
+
+## Sumário
+
+- [Visão geral](#visão-geral)
+- [Stack](#stack)
+- [Estrutura do projeto](#estrutura-do-projeto)
+- [Como executar](#como-executar)
+- [Scripts](#scripts)
+- [Impressão na Sweda SI-300](#impressão-na-sweda-si-300)
+- [Privacidade dos dados](#privacidade-dos-dados)
+- [Etapas de desenvolvimento](#etapas-de-desenvolvimento)
+- [Fluxo de branches](#fluxo-de-branches)
+- [Autor](#autor)
+- [Licença](#licença)
+
+---
+
+## Visão geral
+
+A aplicação se organiza em três áreas na mesma página:
+
+1. **Cabeçalho compacto** — identidade, slogan, indicador online/offline, acesso às configurações e às informações do sistema.
+2. **Área operacional** — formulário de criação com as quatro categorias de sacolas (secas, resfriadas, congeladas e pack), total automático, pré-visualização da etiqueta em HTML/CSS e configurações de impressão.
+3. **Histórico** — últimas etiquetas geradas, com reimpressão, edição, duplicação e exclusão.
+
+Todos os campos de identificação (número da compra, cliente, data, horário e modalidade de entrega) são opcionais: quando vazios, simplesmente não aparecem na etiqueta.
+
+### Identidade visual
+
+| Token | Valor | Uso |
+| --- | --- | --- |
+| `--ef-purple` | `#5940C8` | Cor principal |
+| `--ef-purple-dark` | `#4032A8` | Cor secundária e estados de hover |
+| `--ef-yellow` | `#FFCA45` | Destaque |
+| `--ef-bg` | `#F7F7FC` | Fundo da aplicação |
+| `--ef-surface` | `#FFFFFF` | Cartões e superfícies |
+| `--ef-text` | `#17183A` | Texto principal |
+| `--ef-muted` | `#77788B` | Texto secundário |
+| `--ef-success` | `#16B879` | Status positivo |
+| `--ef-danger` | `#E5484D` | Ações destrutivas |
+
+---
+
+## Stack
+
+| Camada | Tecnologia |
+| --- | --- |
+| Framework | [Next.js](https://nextjs.org) (App Router) |
+| UI | [React](https://react.dev) + [TypeScript](https://www.typescriptlang.org) |
+| Base estrutural e tema | [Bootstrap 5](https://getbootstrap.com) + CSS Modules |
+| Ícones | [React Icons](https://react-icons.github.io/react-icons/) |
+| Validação | [Zod](https://zod.dev) |
+| Persistência local | `localStorage` (preferências) e IndexedDB (histórico) |
+| PWA / offline | [Serwist](https://serwist.pages.dev) |
+| Deploy | [Vercel](https://vercel.com) |
+
+Sem Tailwind, sem Lucide, sem bibliotecas pagas e sem APIs externas.
+
+---
+
+## Estrutura do projeto
+
+```text
+.
+├─ public/                # Arquivos estáticos (favicon, ícones da PWA)
+└─ src/
+   ├─ app/                # App Router: layout raiz, página principal e estilos da página
+   ├─ domain/             # Contratos e regras puras do negócio (etiquetas, impressão)
+   ├─ styles/             # Tokens de design, base do HTML e tema do Bootstrap
+   ├─ components/         # Componentes de UI (cada um com seu CSS Module) — próximas etapas
+   ├─ hooks/              # Estado e comportamento reutilizável — próximas etapas
+   └─ services/           # Persistência e impressão — próximas etapas
+```
+
+Convenções adotadas:
+
+- **Componentes** ficam em `components/NomeDoComponente/NomeDoComponente.tsx` com `NomeDoComponente.module.css` ao lado; o componente cuida apenas da própria aparência interna.
+- **Regras de negócio** ficam em `domain/` como funções puras, sem React e sem acesso ao navegador, o que permite testá-las isoladamente.
+- **Estilos globais** (`styles/globals.css`) contêm somente tokens, base do HTML e variáveis do Bootstrap — nada específico de tela.
+- **Persistência e impressão** ficam em `services/`, para que a UI não conheça detalhes de `localStorage`, IndexedDB ou `window.print()`.
+- **Estado derivado** é calculado a partir de props e estado existente, sem `useState` redundante.
+
+---
+
+## Como executar
+
+Requisitos: **Node.js 20+** e npm.
+
+```bash
+# clonar
+git clone https://github.com/nf-silveira/etiqueta-facil.git
+cd etiqueta-facil
+
+# instalar dependências
+npm install
+
+# ambiente de desenvolvimento (http://localhost:3000)
+npm run dev
+```
+
+---
+
+## Scripts
+
+| Script | Descrição |
+| --- | --- |
+| `npm run dev` | Sobe o servidor de desenvolvimento do Next.js |
+| `npm run build` | Gera o build de produção |
+| `npm run start` | Executa o build de produção |
+| `npm run lint` | Executa o ESLint |
+| `npm run typecheck` | Verifica os tipos com TypeScript |
+
+---
+
+## Impressão na Sweda SI-300
+
+Configuração de referência: [manual do fabricante](https://sweda.com.br/wp-content/uploads/2023/04/Manual-SI300-SI300W-L.pdf).
+
+| Especificação | Valor |
+| --- | --- |
+| Bobina | Térmica adesiva contínua |
+| Largura da bobina | 80 mm |
+| Largura máxima imprimível | 72 mm |
+| Resolução | 180 DPI |
+| Corte | Automático, feito pela impressora |
+| Dimensões iniciais | 72 × 100 mm, margem interna de 2 mm |
+
+A impressão usa `window.print()` com CSS `@media print`, dimensões em milímetros e uma etiqueta por bloco de impressão, escondendo toda a interface. O navegador **não** comanda o cortador: o corte depende do driver e das configurações de papel no computador.
+
+> **Validação física pendente.** O desenvolvimento acontece sem acesso à impressora. Os testes são feitos por simulação local (proporções, PDF e verificação de transbordo), seguindo o plano de testes interno do projeto. O teste real na Sweda SI-300 continua sendo uma etapa futura.
+
+---
+
+## Privacidade dos dados
+
+Tudo é local: nenhuma informação de cliente sai do navegador. Não há backend, autenticação, cookies de rastreamento ou chamadas a APIs de terceiros. Histórico e preferências vivem no próprio computador do setor.
+
+---
+
+## Etapas de desenvolvimento
+
+O projeto é construído em etapas, cada uma verificável por conta própria.
+
+| Etapa | Escopo | Status |
+| --- | --- | --- |
+| 0 | Fundação: stack, design tokens, contratos do domínio | ✅ Concluída |
+| 1 | Interface: cabeçalho, área operacional, histórico | ⏳ Próxima |
+| 2 | Formulário: campos opcionais, categorias, total automático | ⏳ Pendente |
+| 3 | Etiqueta: HTML/CSS e pré-visualização dinâmica com navegação | ⏳ Pendente |
+| 4 | Impressão: dimensões em mm, CSS de impressão e etiqueta de teste | ⏳ Pendente |
+| 5 | Configurações: modelos, personalização e persistência | ⏳ Pendente |
+| 6 | Histórico: salvar, editar, duplicar, excluir e reimprimir | ⏳ Pendente |
+| 7 | Offline: PWA com Serwist e indicador de conexão | ⏳ Pendente |
+| 8 | Testes: automatizados, visuais e validação física | ⏳ Pendente |
+
+---
+
+## Fluxo de branches
+
+- `develop` — integração contínua; todo trabalho entra aqui primeiro.
+- `main` — versão estável, atualizada por merge de `develop`.
+
+Commits seguem [Conventional Commits 1.0.0](https://www.conventionalcommits.org/pt-br/) com emoji do tipo, mensagem em inglês e corpo em tópicos.
+
+---
+
+## Autor
+
+**Nelson Felipe** — [@nf-silveira](https://github.com/nf-silveira)
+
+---
+
+## Licença
+
+Distribuído sob a licença MIT. Veja [LICENSE](LICENSE) para mais detalhes.

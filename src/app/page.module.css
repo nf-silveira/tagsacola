@@ -1,0 +1,60 @@
+.screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: var(--ef-space-5);
+  background: linear-gradient(160deg, var(--ef-purple) 0%, var(--ef-purple-dark) 100%);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ef-space-3);
+  width: 100%;
+  max-width: 34rem;
+  padding: var(--ef-space-6) var(--ef-space-5);
+  text-align: center;
+  background-color: var(--ef-surface);
+  border-radius: var(--ef-radius-lg);
+  box-shadow: var(--ef-shadow-md);
+}
+
+.iconBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  color: var(--ef-purple);
+  background-color: rgb(89 64 200 / 10%);
+  border-radius: var(--ef-radius-pill);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ef-purple);
+}
+
+.highlight {
+  color: var(--ef-yellow);
+}
+
+.slogan {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ef-text);
+}
+
+.description {
+  max-width: 28rem;
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ef-muted);
+}
