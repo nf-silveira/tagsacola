@@ -69,8 +69,7 @@ Todos os campos de identificação (número da compra, cliente, data, horário e
 | Base estrutural e tema | [Bootstrap 5](https://getbootstrap.com) + CSS Modules |
 | Ícones | [React Icons](https://react-icons.github.io/react-icons/) |
 | Validação | [Zod](https://zod.dev) |
-| Persistência local | `localStorage` (preferências) e IndexedDB (histórico) |
-| PWA / offline | [Serwist](https://serwist.pages.dev) |
+| Persistência local | `localStorage` (preferências e histórico) |
 | Deploy | [Vercel](https://vercel.com) |
 
 Sem Tailwind, sem Lucide, sem bibliotecas pagas e sem APIs externas.
@@ -81,7 +80,7 @@ Sem Tailwind, sem Lucide, sem bibliotecas pagas e sem APIs externas.
 
 ```text
 .
-├─ public/                # Arquivos estáticos (favicon, ícones da PWA)
+├─ public/                # Arquivos estáticos (favicon)
 └─ src/
    ├─ app/                # App Router: layout raiz, página principal e estilos da página
    ├─ components/         # Componentes de UI, cada um com seu CSS Module
@@ -96,14 +95,14 @@ Convenções adotadas:
 - **Componentes** ficam em `components/NomeDoComponente/NomeDoComponente.tsx` com `NomeDoComponente.module.css` ao lado; o componente cuida apenas da própria aparência interna.
 - **Regras de negócio** ficam em `domain/` como funções puras, sem React e sem acesso ao navegador, o que permite testá-las isoladamente.
 - **Estilos globais** (`styles/globals.css`) contêm somente tokens, base do HTML e variáveis do Bootstrap — nada específico de tela.
-- **Persistência e impressão** ficam em `services/`, para que a UI não conheça detalhes de `localStorage`, IndexedDB ou `window.print()`.
+- **Persistência e impressão** ficam em `services/`, para que a UI não conheça detalhes de `localStorage` ou `window.print()`.
 - **Estado derivado** é calculado a partir de props e estado existente, sem `useState` redundante.
 
 ---
 
 ## Como executar
 
-Requisitos: **Node.js 20+** e npm.
+Requisitos: **Node.js 24** e npm — a mesma versão declarada em `.nvmrc`, em `engines` e usada no CI.
 
 ```bash
 # clonar
@@ -156,7 +155,19 @@ npm run test:run
 ## CI/CD e deploy
 
 - **Integração contínua:** `.github/workflows/ci.yml` roda em `push` e `pull_request` para `develop` e `main`, executando `npm ci`, `lint`, `typecheck`, `test:run` e `build`.
-- **Deploy:** automático na [Vercel](https://vercel.com) a partir da branch `main`. O `vercel.json` fixa o preset `nextjs`, necessário porque o projeto nasceu como scaffold Vite.
+- **Gate de qualidade:** o deploy de produção só acontece depois que o workflow `CI` conclui com sucesso na `main`. O `vercel.json` desativa o deploy automático da `main` (`git.deploymentEnabled.main = false`) e `.github/workflows/deploy-production.yml` publica exatamente o commit testado usando a Vercel CLI.
+- **Segredos do deploy:** `VERCEL_TOKEN`, `VERCEL_ORG_ID` e `VERCEL_PROJECT_ID` em *Settings → Secrets and variables → Actions*. Sem eles o job falha com mensagem explícita e a produção permanece na última versão publicada.
+- **Proteção da `main`:** aplique a proteção exigindo PR e o check `Lint, tipos, testes e build` (com `gh` autenticado):
+
+  ```bash
+  gh api --method PUT repos/nf-silveira/tagsacola/branches/main/protection \
+    -H "Accept: application/vnd.github+json" \
+    -F 'required_status_checks[strict]=true' \
+    -f 'required_status_checks[contexts][]=Lint, tipos, testes e build' \
+    -F 'enforce_admins=true' \
+    -F 'required_pull_request_reviews[required_approving_review_count]=0'
+  ```
+
 - **Produção:** <https://tagsacola.vercel.app>
 
 ---
@@ -199,7 +210,6 @@ O projeto é construído em etapas, cada uma verificável por conta própria.
 | 4 | Impressão: dimensões em mm, CSS de impressão e etiqueta de teste | ✅ Concluída (simulação local) |
 | 5 | Configurações: modelos, personalização e persistência | ✅ Concluída |
 | 6 | Histórico: salvar, buscar, paginar, editar, excluir e reimprimir | ✅ Concluída |
-| 7 | Offline: PWA com Serwist | ⏳ Pendente |
 | 8 | Testes: unitários e de componente no CI | ✅ Concluída |
 | 9 | Validação visual/PDF e teste físico na Sweda SI-300 | ⏳ Pendente |
 
@@ -208,7 +218,8 @@ O projeto é construído em etapas, cada uma verificável por conta própria.
 ## Fluxo de branches
 
 - `develop` — integração contínua; todo trabalho entra aqui primeiro.
-- `main` — versão estável, atualizada por merge de `develop`.
+- `main` — versão estável, atualizada por merge de `develop`. Com a proteção de branch aplicada (veja CI/CD), o merge passa a exigir PR e o check do CI verde.
+- O deploy de produção é disparado pelo workflow de CD somente após o `CI` passar na `main`.
 
 Commits seguem [Conventional Commits 1.0.0](https://www.conventionalcommits.org/pt-br/) com emoji do tipo, mensagem em inglês e corpo em tópicos.
 
