@@ -144,6 +144,7 @@ A suíte usa **Vitest** com **Testing Library** em ambiente `jsdom` e cobre as r
 | `src/domain/history.test.ts` | Busca sem acento/maiúscula, recorte de página, atalhos numerados com "…" e formatação de data/hora do histórico |
 | `src/components/ConfirmDialog/confirmationMessages.test.ts` | Textos do diálogo de exclusão (com e sem número da compra) e de limpeza do histórico |
 | `src/components/PrintableLabel/PrintableLabel.test.tsx` | Sequência "3 de 10", dimensões em mm, campos opcionais omitidos, resumo por categoria, chips vazados, nomes longos |
+| `src/components/HistoryTable/HistoryTable.test.tsx` | Estado vazio, busca sem acento na UI, paginação numerada, tamanho de página, limites e ações por linha |
 | `src/components/OrderForm/OrderForm.test.tsx` | Total derivado, geração bloqueada com zero, preenchimento automático de data/horário, limpeza do formulário |
 | `src/services/storageService.test.ts` | Persistência de preferências e histórico no `localStorage` |
 
