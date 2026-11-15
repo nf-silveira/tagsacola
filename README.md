@@ -155,7 +155,7 @@ npm run test:run
 
 ## CI/CD e deploy
 
-- **Integração contínua:** `.github/workflows/ci.yml` roda em `push` e `pull_request` para `develop` e `main`, executando `npm ci` e `npm run verify` (lint, tipos, testes e build em sequência — os mesmos comandos que você roda localmente).
+- **Integração contínua:** `.github/workflows/ci.yml` roda em `pull_request` para `main` e `develop`, e em `push` para `main`, executando `npm ci` e `npm run verify` (lint, tipos, testes e build em sequência — os mesmos comandos que você roda localmente).
 - **Gate de qualidade:** o deploy de produção só acontece depois que o workflow `CI` conclui com sucesso na `main`. O `vercel.json` desativa o deploy automático da `main` (`git.deploymentEnabled.main = false`) e `.github/workflows/deploy-production.yml` publica exatamente o commit testado usando a Vercel CLI.
 - **Segredos do deploy:** `VERCEL_TOKEN`, `VERCEL_ORG_ID` e `VERCEL_PROJECT_ID` em *Settings → Secrets and variables → Actions*. Sem eles o job falha com mensagem explícita e a produção permanece na última versão publicada.
 - **Proteção da `main`** (já aplicada): exige PR e o check `npm run verify` — o check tem o nome do job do workflow, não do passo. Para reaplicar com `gh` autenticado:
