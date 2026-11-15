@@ -50,6 +50,11 @@
   color: var(--ef-text);
 }
 
+/* Ancora as caixas no fim da linha para alinhá-las mesmo quando o rótulo quebra em duas linhas. */
+.fields .input {
+  margin-top: auto;
+}
+
 .optional {
   font-size: 0.6875rem;
   font-style: normal;

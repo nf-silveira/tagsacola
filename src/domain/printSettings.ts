@@ -7,8 +7,8 @@
 
 import { z } from 'zod'
 
-/** Largura máxima imprimível informada pelo fabricante. */
-export const MAX_PRINTABLE_WIDTH_MM = 72
+/** Largura máxima da bobina informada pelo fabricante. */
+export const MAX_PRINTABLE_WIDTH_MM = 80
 export const MIN_PRINT_DIMENSION_MM = 20
 export const MAX_PRINT_HEIGHT_MM = 300
 export const MIN_PRINT_MARGIN_MM = 0
@@ -26,7 +26,7 @@ export interface PrintPreset {
 }
 
 export const PRINT_PRESETS: Record<Exclude<PrintPresetId, 'custom'>, PrintPreset> = {
-  standard: { label: 'Padrão', widthMm: 72, heightMm: 100, marginMm: 2 },
+  standard: { label: 'Padrão', widthMm: 80, heightMm: 55, marginMm: 2 },
   compact: { label: 'Compacta', widthMm: 72, heightMm: 80, marginMm: 2 },
 }
 
@@ -36,7 +36,7 @@ export const printSettingsSchema = z
     widthMm: z
       .number()
       .min(MIN_PRINT_DIMENSION_MM, 'Largura mínima de 20 mm.')
-      .max(MAX_PRINTABLE_WIDTH_MM, 'A Sweda SI-300 imprime no máximo 72 mm.'),
+      .max(MAX_PRINTABLE_WIDTH_MM, 'Largura máxima de 80 mm.'),
     heightMm: z
       .number()
       .min(MIN_PRINT_DIMENSION_MM, 'Altura mínima de 20 mm.')

@@ -46,6 +46,17 @@
   color: var(--ef-muted);
 }
 
+.footerBrandLink {
+  font-weight: 700;
+  color: var(--ef-purple);
+  text-decoration: none;
+}
+
+.footerBrandLink:hover {
+  color: var(--ef-purple-dark);
+  text-decoration: underline;
+}
+
 .footerLink {
   display: inline-flex;
   align-items: center;

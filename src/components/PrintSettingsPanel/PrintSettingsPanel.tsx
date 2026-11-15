@@ -137,8 +137,8 @@ export function PrintSettingsPanel({
         </div>
 
         <p className={styles.hint}>
-          A Sweda SI-300 imprime até {MAX_PRINTABLE_WIDTH_MM} mm de largura. O corte é
-          automático, feito pela impressora.
+          A Sweda SI-300 usa bobina contínua de {MAX_PRINTABLE_WIDTH_MM} mm, com 72 mm
+          de área imprimível. O corte é automático, feito pela impressora.
         </p>
 
         <div className={styles.actions}>

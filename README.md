@@ -38,9 +38,9 @@ O foco não é gestão de pedidos, e sim velocidade, poucos cliques, confiabilid
 
 A aplicação se organiza em três áreas na mesma página:
 
-1. **Cabeçalho compacto** — identidade, slogan, indicador online/offline, acesso às configurações e às informações do sistema.
+1. **Cabeçalho compacto** — identidade, slogan, indicador online/offline e acesso às informações do sistema.
 2. **Área operacional** — formulário de criação com as quatro categorias de sacolas (secas, resfriadas, congeladas e pack), total automático, pré-visualização da etiqueta em HTML/CSS e configurações de impressão.
-3. **Histórico** — últimas etiquetas geradas, com reimpressão, edição, duplicação e exclusão.
+3. **Histórico** — últimas etiquetas geradas, com busca, paginação, reimpressão, edição e exclusão.
 
 Todos os campos de identificação (número da compra, cliente, data, horário e modalidade de entrega) são opcionais: quando vazios, simplesmente não aparecem na etiqueta.
 
@@ -140,7 +140,7 @@ A suíte usa **Vitest** com **Testing Library** em ambiente `jsdom` e cobre as r
 | Arquivo | O que valida |
 | --- | --- |
 | `src/domain/label.test.ts` | Total de sacolas, singular/plural, formatação de data e horário, geração de lote com quantidades congeladas |
-| `src/domain/printSettings.test.ts` | Limite de 72 mm, margens consistentes, dimensões inválidas, modelos Padrão e Compacta |
+| `src/domain/printSettings.test.ts` | Limite de 80 mm, margens consistentes, dimensões inválidas, modelos Padrão e Compacta |
 | `src/components/PrintableLabel/PrintableLabel.test.tsx` | Sequência "3 de 10", dimensões em mm, campos opcionais omitidos, resumo por categoria, chips vazados, nomes longos |
 | `src/components/OrderForm/OrderForm.test.tsx` | Total derivado, geração bloqueada com zero, preenchimento automático de data/horário, limpeza do formulário |
 | `src/services/storageService.test.ts` | Persistência de preferências e histórico no `localStorage` |
@@ -149,7 +149,7 @@ A suíte usa **Vitest** com **Testing Library** em ambiente `jsdom` e cobre as r
 npm run test:run
 ```
 
-**Fora do escopo automatizado (por enquanto):** geração de PDF e conferência dimensional. Enquanto não há acesso à Sweda SI-300, a checagem é manual: `Ctrl+P` → *Salvar como PDF*, com papel personalizado de 72 × 100 mm, conferindo se nenhuma etiqueta é cortada ou dividida entre páginas.
+**Fora do escopo automatizado (por enquanto):** geração de PDF e conferência dimensional. Enquanto não há acesso à Sweda SI-300, a checagem é manual: `Ctrl+P` → *Salvar como PDF*, com papel personalizado de 80 × 55 mm, conferindo se nenhuma etiqueta é cortada ou dividida entre páginas.
 
 ---
 
@@ -172,7 +172,7 @@ Configuração de referência: [manual do fabricante](https://sweda.com.br/wp-co
 | Largura máxima imprimível | 72 mm |
 | Resolução | 180 DPI |
 | Corte | Automático, feito pela impressora |
-| Dimensões iniciais | 72 × 100 mm, margem interna de 2 mm |
+| Dimensões iniciais | 80 × 55 mm, margem interna de 2 mm |
 
 A impressão usa `window.print()` com CSS `@media print`, dimensões em milímetros e uma etiqueta por bloco de impressão, escondendo toda a interface. O navegador **não** comanda o cortador: o corte depende do driver e das configurações de papel no computador.
 
@@ -198,7 +198,7 @@ O projeto é construído em etapas, cada uma verificável por conta própria.
 | 3 | Etiqueta: HTML/CSS e pré-visualização dinâmica com navegação | ✅ Concluída |
 | 4 | Impressão: dimensões em mm, CSS de impressão e etiqueta de teste | ✅ Concluída (simulação local) |
 | 5 | Configurações: modelos, personalização e persistência | ✅ Concluída |
-| 6 | Histórico: salvar, editar, duplicar, excluir e reimprimir | ✅ Concluída |
+| 6 | Histórico: salvar, buscar, paginar, editar, excluir e reimprimir | ✅ Concluída |
 | 7 | Offline: PWA com Serwist | ⏳ Pendente |
 | 8 | Testes: unitários e de componente no CI | ✅ Concluída |
 | 9 | Validação visual/PDF e teste físico na Sweda SI-300 | ⏳ Pendente |

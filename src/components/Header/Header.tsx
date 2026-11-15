@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FiInfo, FiSettings, FiTag } from 'react-icons/fi'
+import { FiInfo, FiTag } from 'react-icons/fi'
 
 import { StatusIndicator } from '@/components/StatusIndicator/StatusIndicator'
 
@@ -7,10 +7,9 @@ import styles from './Header.module.css'
 
 interface HeaderProps {
   isOnline: boolean
-  onOpenSettings: () => void
 }
 
-export function Header({ isOnline, onOpenSettings }: HeaderProps) {
+export function Header({ isOnline }: HeaderProps) {
   const [isInfoOpen, setIsInfoOpen] = useState(false)
 
   return (
@@ -32,11 +31,6 @@ export function Header({ isOnline, onOpenSettings }: HeaderProps) {
 
       <div className={styles.actions}>
         <StatusIndicator isOnline={isOnline} />
-
-        <button type="button" className={styles.settingsButton} onClick={onOpenSettings}>
-          <FiSettings aria-hidden="true" />
-          Configurações
-        </button>
 
         <button
           type="button"

@@ -25,8 +25,6 @@ function OrderFormHarness() {
       onChangeQuantity={setQuantity}
       onGenerate={() => undefined}
       onClear={clearDraft}
-      onDuplicateLast={() => undefined}
-      canDuplicateLast={false}
     />
   )
 }

@@ -41,6 +41,42 @@
   border-color: var(--ef-danger);
 }
 
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0.75rem 1.1rem;
+  border-bottom: 1px solid var(--ef-border);
+}
+
+.searchField {
+  display: flex;
+  flex: 1 1 18rem;
+  align-items: center;
+  gap: 0.45rem;
+  max-width: 26rem;
+  padding: 0 0.6rem;
+  color: var(--ef-muted);
+  background-color: var(--ef-surface);
+  border: 1px solid var(--ef-border);
+  border-radius: var(--ef-radius-sm);
+}
+
+.searchField:focus-within {
+  color: var(--ef-purple);
+  border-color: var(--ef-purple);
+}
+
+.searchInput {
+  padding-left: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+.searchInput:focus {
+  box-shadow: none;
+}
+
 .tableWrapper {
   overflow-x: auto;
 }
@@ -116,19 +152,121 @@
   background-color: var(--ef-blue);
 }
 
-.duplicateButton {
-  color: var(--ef-text);
-  background-color: var(--ef-surface);
-  border-color: var(--ef-border);
-}
-
-.duplicateButton:hover {
-  border-color: var(--ef-purple);
-  color: var(--ef-purple);
-}
-
 .deleteButton {
   background-color: var(--ef-danger);
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.65rem 1.1rem;
+  border-top: 1px solid var(--ef-border);
+}
+
+.pageSizeField {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--ef-muted);
+  white-space: nowrap;
+}
+
+.pageSizeSelect {
+  width: auto;
+  font-size: 0.8125rem;
+  color: var(--ef-text);
+  border-color: var(--ef-border);
+  box-shadow: none;
+}
+
+.pageSizeSelect:focus {
+  border-color: var(--ef-purple);
+  box-shadow: none;
+}
+
+.rangeInfo {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--ef-muted);
+}
+
+.pageControls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.pageButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  color: var(--ef-purple);
+  cursor: pointer;
+  background-color: var(--ef-surface);
+  border: 1px solid var(--ef-border);
+  border-radius: var(--ef-radius-sm);
+  transition: border-color 0.2s ease;
+}
+
+.pageButton:hover:not(:disabled) {
+  border-color: var(--ef-purple);
+}
+
+.pageButton:disabled {
+  color: var(--ef-muted);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.pageList {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.pageNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.9rem;
+  height: 1.9rem;
+  padding: 0 0.35rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ef-text);
+  cursor: pointer;
+  background-color: var(--ef-surface);
+  border: 1px solid var(--ef-border);
+  border-radius: var(--ef-radius-sm);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.pageNumber:hover {
+  color: var(--ef-purple);
+  border-color: var(--ef-purple);
+}
+
+.pageNumberActive,
+.pageNumberActive:hover {
+  color: #fff;
+  background-color: var(--ef-purple);
+  border-color: var(--ef-purple);
+}
+
+.pageGap {
+  padding: 0 0.15rem;
+  font-size: 0.8125rem;
+  color: var(--ef-muted);
+  line-height: 1;
 }
 
 .emptyState {

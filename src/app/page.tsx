@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { flushSync } from 'react-dom'
 import { FiGithub } from 'react-icons/fi'
 
+import { ConfirmDialog } from '@/components/ConfirmDialog/ConfirmDialog'
 import { Header } from '@/components/Header/Header'
 import { HistoryTable } from '@/components/HistoryTable/HistoryTable'
 import { LabelPreview } from '@/components/LabelPreview/LabelPreview'
@@ -35,6 +36,8 @@ const TEST_LABEL: LabelDraft = {
 
 type PrintTarget = 'labels' | 'test' | null
 
+type PendingAction = { type: 'delete'; batch: LabelBatch } | { type: 'clear' } | null
+
 export default function Home() {
   const isOnline = useNetworkStatus()
   const {
@@ -59,9 +62,9 @@ export default function Home() {
   const totalBags = countBags(draft.quantities)
   const [activePage, setActivePage] = useState(1)
   const [printTarget, setPrintTarget] = useState<PrintTarget>(null)
+  const [pendingAction, setPendingAction] = useState<PendingAction>(null)
 
   const currentPage = Math.min(Math.max(activePage, 1), Math.max(totalBags, 1))
-  const lastBatch = batches[0]
 
   /** Monta a área imprimível, abre o diálogo de impressão e limpa a área. */
   function printLabels(target: Exclude<PrintTarget, null>) {
@@ -77,15 +80,7 @@ export default function Home() {
 
     addBatch(createLabelBatch(draft))
     setActivePage(1)
-  }
-
-  function handleDuplicateLast() {
-    if (!lastBatch) {
-      return
-    }
-
-    loadBatch(lastBatch)
-    setActivePage(1)
+    printLabels('labels')
   }
 
   function handleLoadBatch(batch: LabelBatch) {
@@ -106,29 +101,48 @@ export default function Home() {
   }
 
   function handleDeleteBatch(batch: LabelBatch) {
-    const confirmed = window.confirm('Excluir esta etiqueta do histórico?')
-    if (confirmed) {
-      removeBatch(batch.id)
-    }
+    setPendingAction({ type: 'delete', batch })
   }
 
   function handleClearHistory() {
-    const confirmed = window.confirm('Limpar todo o histórico de etiquetas?')
-    if (confirmed) {
-      clearHistory()
-    }
+    setPendingAction({ type: 'clear' })
   }
 
-  function handleOpenSettings() {
-    document
-      .getElementById('print-settings')
-      ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  function handleConfirmPendingAction() {
+    if (pendingAction === null) {
+      return
+    }
+
+    if (pendingAction.type === 'delete') {
+      removeBatch(pendingAction.batch.id)
+    } else {
+      clearHistory()
+    }
+
+    setPendingAction(null)
   }
+
+  const confirmation =
+    pendingAction === null
+      ? null
+      : pendingAction.type === 'delete'
+        ? {
+            title: 'Excluir etiqueta do histórico?',
+            description: pendingAction.batch.purchaseNumber
+              ? `A etiqueta da compra ${pendingAction.batch.purchaseNumber} será removida deste computador. Esta ação não pode ser desfeita.`
+              : 'Esta etiqueta será removida deste computador. Esta ação não pode ser desfeita.',
+            confirmLabel: 'Excluir etiqueta',
+          }
+        : {
+            title: 'Limpar todo o histórico?',
+            description: `Todas as etiquetas salvas neste computador (${batches.length}) serão removidas. Esta ação não pode ser desfeita.`,
+            confirmLabel: 'Limpar histórico',
+          }
 
   return (
     <>
-      <div className={`app-shell ${styles.shell}`}>
-        <Header isOnline={isOnline} onOpenSettings={handleOpenSettings} />
+      <div id="topo" className={`app-shell ${styles.shell}`}>
+        <Header isOnline={isOnline} />
 
         <main className={styles.main}>
           <div className={styles.columns}>
@@ -141,8 +155,6 @@ export default function Home() {
                 onChangeQuantity={setQuantity}
                 onGenerate={handleGenerateLabels}
                 onClear={clearDraft}
-                onDuplicateLast={handleDuplicateLast}
-                canDuplicateLast={Boolean(lastBatch)}
               />
             </div>
 
@@ -174,7 +186,6 @@ export default function Home() {
             batches={batches}
             onReprint={handleReprintBatch}
             onEdit={handleEditBatch}
-            onDuplicate={handleLoadBatch}
             onDelete={handleDeleteBatch}
             onClearHistory={handleClearHistory}
           />
@@ -182,19 +193,37 @@ export default function Home() {
 
         <footer className={styles.footer}>
           <p>
-            Tag Sacola · Desenvolvido por{' '}
-            <a
-              className={styles.footerLink}
-              href="https://github.com/nf-silveira/tagsacola"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FiGithub aria-hidden="true" />
-              Nelson Felipe
-            </a>
+            <span>
+              © 2026{' '}
+              <a className={styles.footerBrandLink} href="#topo">
+                Tag Sacola
+              </a>
+            </span>
+            <span aria-hidden="true">·</span>
+            <span>
+              Desenvolvido por{' '}
+              <a
+                className={styles.footerLink}
+                href="https://github.com/nf-silveira/tagsacola"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FiGithub aria-hidden="true" />
+                Nelson Felipe
+              </a>
+            </span>
           </p>
         </footer>
       </div>
+
+      <ConfirmDialog
+        open={pendingAction !== null}
+        title={confirmation?.title ?? ''}
+        description={confirmation?.description ?? ''}
+        confirmLabel={confirmation?.confirmLabel ?? 'Confirmar'}
+        onConfirm={handleConfirmPendingAction}
+        onCancel={() => setPendingAction(null)}
+      />
 
       <div className="print-area" aria-hidden="true">
         {printTarget === 'test' && (

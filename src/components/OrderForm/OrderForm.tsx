@@ -1,6 +1,6 @@
 import type { ChangeEvent } from 'react'
 import { FaBagShopping, FaBroom, FaCartShopping } from 'react-icons/fa6'
-import { FiCopy, FiPrinter } from 'react-icons/fi'
+import { FiPrinter } from 'react-icons/fi'
 
 import { QuantityCard } from '@/components/QuantityCard/QuantityCard'
 import type { IdentificationField } from '@/hooks/useLabelDraft'
@@ -23,8 +23,6 @@ interface OrderFormProps {
   onChangeQuantity: (category: BagCategory, quantity: number) => void
   onGenerate: () => void
   onClear: () => void
-  onDuplicateLast: () => void
-  canDuplicateLast: boolean
 }
 
 export function OrderForm({
@@ -35,8 +33,6 @@ export function OrderForm({
   onChangeQuantity,
   onGenerate,
   onClear,
-  onDuplicateLast,
-  canDuplicateLast,
 }: OrderFormProps) {
   function createFieldHandler(field: IdentificationField) {
     return (event: ChangeEvent<HTMLInputElement>) => {
@@ -166,7 +162,7 @@ export function OrderForm({
             title={
               totalBags === 0
                 ? 'Informe ao menos uma sacola para gerar as etiquetas'
-                : 'Gerar as etiquetas e salvar no histórico'
+                : 'Gerar as etiquetas, salvar no histórico e abrir a impressão'
             }
           >
             <FiPrinter aria-hidden="true" />
@@ -176,17 +172,6 @@ export function OrderForm({
           <button type="button" className={styles.secondaryButton} onClick={onClear}>
             <FaBroom aria-hidden="true" />
             Limpar
-          </button>
-
-          <button
-            type="button"
-            className={styles.secondaryButton}
-            onClick={onDuplicateLast}
-            disabled={!canDuplicateLast}
-            title="Carregar os dados da última compra gerada"
-          >
-            <FiCopy aria-hidden="true" />
-            Duplicar
           </button>
         </div>
       </div>

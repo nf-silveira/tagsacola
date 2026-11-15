@@ -86,7 +86,7 @@ export const labelBatchSchema = z.object({
 })
 
 /** Quantidade máxima de registros mantidos no histórico local. */
-export const MAX_HISTORY_ITEMS = 20
+export const MAX_HISTORY_ITEMS = 100
 
 export function createEmptyBagQuantities(): BagQuantities {
   return { dry: 0, refrigerated: 0, frozen: 0, pack: 0 }

@@ -13,8 +13,8 @@ describe('printSettingsSchema', () => {
 
     expect(result.success).toBe(true)
     expect(DEFAULT_PRINT_SETTINGS).toMatchObject({
-      widthMm: 72,
-      heightMm: 100,
+      widthMm: 80,
+      heightMm: 55,
       marginMm: 2,
       presetId: 'standard',
     })
@@ -27,7 +27,7 @@ describe('printSettingsSchema', () => {
     })
 
     expect(result.success).toBe(false)
-    expect(result.error?.issues[0]?.message).toContain('72 mm')
+    expect(result.error?.issues[0]?.message).toContain('80 mm')
   })
 
   it('rejeita margens que consomem toda a largura', () => {
@@ -50,8 +50,8 @@ describe('printSettingsSchema', () => {
     expect(result.success).toBe(false)
   })
 
-  it('mantém os modelos padrão e compacto em 72 mm de largura', () => {
-    expect(PRINT_PRESETS.standard).toMatchObject({ widthMm: 72, heightMm: 100 })
+  it('mantém o modelo padrão em 80 × 55 mm e o compacto em 72 × 80 mm', () => {
+    expect(PRINT_PRESETS.standard).toMatchObject({ widthMm: 80, heightMm: 55 })
     expect(PRINT_PRESETS.compact).toMatchObject({ widthMm: 72, heightMm: 80 })
   })
 })

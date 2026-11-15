@@ -49,8 +49,8 @@ describe('PrintableLabel', () => {
     const { container } = renderLabel()
 
     const label = container.firstElementChild as HTMLElement
-    expect(label.style.width).toBe('72mm')
-    expect(label.style.height).toBe('100mm')
+    expect(label.style.width).toBe('80mm')
+    expect(label.style.height).toBe('55mm')
     expect(label.style.padding).toBe('2mm')
   })
 
