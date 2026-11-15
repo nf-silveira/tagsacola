@@ -94,6 +94,7 @@ Convenções adotadas:
 
 - **Componentes** ficam em `components/NomeDoComponente/NomeDoComponente.tsx` com `NomeDoComponente.module.css` ao lado; o componente cuida apenas da própria aparência interna.
 - **Regras de negócio** ficam em `domain/` como funções puras, sem React e sem acesso ao navegador, o que permite testá-las isoladamente.
+- **Recursos visuais compartilhados** por mais de um componente (como os ícones das categorias, em `components/bagCategoryIcons.ts`) ficam em um módulo próprio, fora de uma pasta de componente.
 - **Estilos globais** (`styles/globals.css`) contêm somente tokens, base do HTML e variáveis do Bootstrap — nada específico de tela.
 - **Persistência e impressão** ficam em `services/`, para que a UI não conheça detalhes de `localStorage` ou `window.print()`.
 - **Estado derivado** é calculado a partir de props e estado existente, sem `useState` redundante.

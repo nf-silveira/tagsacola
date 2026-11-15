@@ -19,15 +19,14 @@ export const PRINT_PRESET_IDS = ['standard', 'compact', 'custom'] as const
 export type PrintPresetId = (typeof PRINT_PRESET_IDS)[number]
 
 export interface PrintPreset {
-  label: string
   widthMm: number
   heightMm: number
   marginMm: number
 }
 
 export const PRINT_PRESETS: Record<Exclude<PrintPresetId, 'custom'>, PrintPreset> = {
-  standard: { label: 'Padrão', widthMm: 80, heightMm: 55, marginMm: 2 },
-  compact: { label: 'Compacta', widthMm: 72, heightMm: 80, marginMm: 2 },
+  standard: { widthMm: 80, heightMm: 55, marginMm: 2 },
+  compact: { widthMm: 72, heightMm: 80, marginMm: 2 },
 }
 
 export const printSettingsSchema = z
@@ -69,4 +68,14 @@ export type PrintSettings = z.infer<typeof printSettingsSchema>
 export const DEFAULT_PRINT_SETTINGS: PrintSettings = {
   presetId: 'standard',
   ...PRINT_PRESETS.standard,
+}
+
+/** Compara duas configurações campo a campo, sem depender da ordem das propriedades. */
+export function arePrintSettingsEqual(a: PrintSettings, b: PrintSettings): boolean {
+  return (
+    a.presetId === b.presetId &&
+    a.widthMm === b.widthMm &&
+    a.heightMm === b.heightMm &&
+    a.marginMm === b.marginMm
+  )
 }

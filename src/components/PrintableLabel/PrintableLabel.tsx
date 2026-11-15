@@ -1,24 +1,16 @@
-import type { IconType } from 'react-icons'
-import { FaBagShopping, FaBoxOpen, FaSnowflake, FaTemperatureHalf } from 'react-icons/fa6'
+import { FaBagShopping } from 'react-icons/fa6'
 
+import { BAG_CATEGORY_ICONS } from '@/components/bagCategoryIcons'
 import {
   BAG_CATEGORIES,
   DELIVERY_MODE_LABELS,
   formatLabelDateTime,
   formatQuantityLabel,
-  type BagCategory,
   type LabelDraft,
 } from '@/domain/label'
 import type { PrintSettings } from '@/domain/printSettings'
 
 import styles from './PrintableLabel.module.css'
-
-const CATEGORY_ICONS: Record<BagCategory, IconType> = {
-  dry: FaBagShopping,
-  refrigerated: FaTemperatureHalf,
-  frozen: FaSnowflake,
-  pack: FaBoxOpen,
-}
 
 interface PrintableLabelProps {
   data: LabelDraft
@@ -86,7 +78,7 @@ export function PrintableLabel({ data, position, total, settings }: PrintableLab
       {filledCategories.length > 0 && (
         <footer className={styles.summary}>
           {filledCategories.map((category) => {
-            const Icon = CATEGORY_ICONS[category]
+            const Icon = BAG_CATEGORY_ICONS[category]
             const isOutlined = category === 'dry' || category === 'pack'
 
             return (

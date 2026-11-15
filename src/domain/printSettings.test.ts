@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  arePrintSettingsEqual,
   DEFAULT_PRINT_SETTINGS,
   MAX_PRINTABLE_WIDTH_MM,
   PRINT_PRESETS,
@@ -53,5 +54,42 @@ describe('printSettingsSchema', () => {
   it('mantém o modelo padrão em 80 × 55 mm e o compacto em 72 × 80 mm', () => {
     expect(PRINT_PRESETS.standard).toMatchObject({ widthMm: 80, heightMm: 55 })
     expect(PRINT_PRESETS.compact).toMatchObject({ widthMm: 72, heightMm: 80 })
+  })
+})
+
+describe('arePrintSettingsEqual', () => {
+  it('considera iguais as configurações com os mesmos valores', () => {
+    expect(arePrintSettingsEqual(DEFAULT_PRINT_SETTINGS, { ...DEFAULT_PRINT_SETTINGS })).toBe(
+      true,
+    )
+  })
+
+  it('ignora a ordem das propriedades', () => {
+    const reordered = {
+      marginMm: DEFAULT_PRINT_SETTINGS.marginMm,
+      heightMm: DEFAULT_PRINT_SETTINGS.heightMm,
+      widthMm: DEFAULT_PRINT_SETTINGS.widthMm,
+      presetId: DEFAULT_PRINT_SETTINGS.presetId,
+    }
+
+    expect(arePrintSettingsEqual(DEFAULT_PRINT_SETTINGS, reordered)).toBe(true)
+  })
+
+  it('detecta mudança em qualquer dimensão ou no modelo', () => {
+    expect(
+      arePrintSettingsEqual(DEFAULT_PRINT_SETTINGS, { ...DEFAULT_PRINT_SETTINGS, widthMm: 72 }),
+    ).toBe(false)
+    expect(
+      arePrintSettingsEqual(DEFAULT_PRINT_SETTINGS, {
+        ...DEFAULT_PRINT_SETTINGS,
+        marginMm: 4,
+      }),
+    ).toBe(false)
+    expect(
+      arePrintSettingsEqual(DEFAULT_PRINT_SETTINGS, {
+        ...DEFAULT_PRINT_SETTINGS,
+        presetId: 'custom',
+      }),
+    ).toBe(false)
   })
 })
