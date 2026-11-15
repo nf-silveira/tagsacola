@@ -5,6 +5,10 @@ import { flushSync } from 'react-dom'
 import { FiGithub } from 'react-icons/fi'
 
 import { ConfirmDialog } from '@/components/ConfirmDialog/ConfirmDialog'
+import {
+  buildConfirmation,
+  type PendingAction,
+} from '@/components/ConfirmDialog/confirmationMessages'
 import { Header } from '@/components/Header/Header'
 import { HistoryTable } from '@/components/HistoryTable/HistoryTable'
 import { LabelPreview } from '@/components/LabelPreview/LabelPreview'
@@ -36,8 +40,6 @@ const TEST_LABEL: LabelDraft = {
 
 type PrintTarget = 'labels' | 'test' | null
 
-type PendingAction = { type: 'delete'; batch: LabelBatch } | { type: 'clear' } | null
-
 export default function Home() {
   const isOnline = useNetworkStatus()
   const {
@@ -62,7 +64,7 @@ export default function Home() {
   const totalBags = countBags(draft.quantities)
   const [activePage, setActivePage] = useState(1)
   const [printTarget, setPrintTarget] = useState<PrintTarget>(null)
-  const [pendingAction, setPendingAction] = useState<PendingAction>(null)
+  const [pendingAction, setPendingAction] = useState<PendingAction | null>(null)
 
   const currentPage = Math.min(Math.max(activePage, 1), Math.max(totalBags, 1))
 
@@ -122,22 +124,7 @@ export default function Home() {
     setPendingAction(null)
   }
 
-  const confirmation =
-    pendingAction === null
-      ? null
-      : pendingAction.type === 'delete'
-        ? {
-            title: 'Excluir etiqueta do histórico?',
-            description: pendingAction.batch.purchaseNumber
-              ? `A etiqueta da compra ${pendingAction.batch.purchaseNumber} será removida deste computador. Esta ação não pode ser desfeita.`
-              : 'Esta etiqueta será removida deste computador. Esta ação não pode ser desfeita.',
-            confirmLabel: 'Excluir etiqueta',
-          }
-        : {
-            title: 'Limpar todo o histórico?',
-            description: `Todas as etiquetas salvas neste computador (${batches.length}) serão removidas. Esta ação não pode ser desfeita.`,
-            confirmLabel: 'Limpar histórico',
-          }
+  const confirmation = buildConfirmation(pendingAction, batches.length)
 
   return (
     <>

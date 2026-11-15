@@ -25,6 +25,45 @@ interface PrintSettingsPanelProps {
   onRestoreDefault: () => void
 }
 
+interface DimensionFieldProps {
+  label: string
+  value: number
+  min: number
+  max: number
+  error?: string
+  onChangeValue: (value: number) => void
+}
+
+function DimensionField({
+  label,
+  value,
+  min,
+  max,
+  error,
+  onChangeValue,
+}: DimensionFieldProps) {
+  return (
+    <label className={styles.field}>
+      <span className={styles.fieldLabel}>{label}</span>
+      <input
+        type="number"
+        className={`form-control form-control-sm ${styles.input}`}
+        min={min}
+        max={max}
+        step={1}
+        value={value}
+        onChange={(event) => onChangeValue(event.target.valueAsNumber)}
+        aria-invalid={Boolean(error)}
+      />
+      {error && (
+        <span className={styles.error} role="alert">
+          {error}
+        </span>
+      )}
+    </label>
+  )
+}
+
 const PRESET_OPTIONS: { id: PrintPresetId; label: string }[] = [
   { id: 'standard', label: `Padrão (${PRINT_PRESETS.standard.widthMm} × ${PRINT_PRESETS.standard.heightMm} mm)` },
   { id: 'compact', label: `Compacta (${PRINT_PRESETS.compact.widthMm} × ${PRINT_PRESETS.compact.heightMm} mm)` },
@@ -63,62 +102,32 @@ export function PrintSettingsPanel({
 
       <div className={styles.panelBody}>
         <div className={styles.fields}>
-          <label className={styles.field}>
-            <span className={styles.fieldLabel}>Largura (mm)</span>
-            <input
-              type="number"
-              className={`form-control form-control-sm ${styles.input}`}
-              min={MIN_PRINT_DIMENSION_MM}
-              max={MAX_PRINTABLE_WIDTH_MM}
-              step={1}
-              value={settings.widthMm}
-              onChange={(event) => onChange({ widthMm: event.target.valueAsNumber })}
-              aria-invalid={Boolean(errors.widthMm)}
-            />
-            {errors.widthMm && (
-              <span className={styles.error} role="alert">
-                {errors.widthMm}
-              </span>
-            )}
-          </label>
+          <DimensionField
+            label="Largura (mm)"
+            value={settings.widthMm}
+            min={MIN_PRINT_DIMENSION_MM}
+            max={MAX_PRINTABLE_WIDTH_MM}
+            error={errors.widthMm}
+            onChangeValue={(widthMm) => onChange({ widthMm })}
+          />
 
-          <label className={styles.field}>
-            <span className={styles.fieldLabel}>Altura (mm)</span>
-            <input
-              type="number"
-              className={`form-control form-control-sm ${styles.input}`}
-              min={MIN_PRINT_DIMENSION_MM}
-              max={MAX_PRINT_HEIGHT_MM}
-              step={1}
-              value={settings.heightMm}
-              onChange={(event) => onChange({ heightMm: event.target.valueAsNumber })}
-              aria-invalid={Boolean(errors.heightMm)}
-            />
-            {errors.heightMm && (
-              <span className={styles.error} role="alert">
-                {errors.heightMm}
-              </span>
-            )}
-          </label>
+          <DimensionField
+            label="Altura (mm)"
+            value={settings.heightMm}
+            min={MIN_PRINT_DIMENSION_MM}
+            max={MAX_PRINT_HEIGHT_MM}
+            error={errors.heightMm}
+            onChangeValue={(heightMm) => onChange({ heightMm })}
+          />
 
-          <label className={styles.field}>
-            <span className={styles.fieldLabel}>Margem (mm)</span>
-            <input
-              type="number"
-              className={`form-control form-control-sm ${styles.input}`}
-              min={MIN_PRINT_MARGIN_MM}
-              max={MAX_PRINT_MARGIN_MM}
-              step={1}
-              value={settings.marginMm}
-              onChange={(event) => onChange({ marginMm: event.target.valueAsNumber })}
-              aria-invalid={Boolean(errors.marginMm)}
-            />
-            {errors.marginMm && (
-              <span className={styles.error} role="alert">
-                {errors.marginMm}
-              </span>
-            )}
-          </label>
+          <DimensionField
+            label="Margem (mm)"
+            value={settings.marginMm}
+            min={MIN_PRINT_MARGIN_MM}
+            max={MAX_PRINT_MARGIN_MM}
+            error={errors.marginMm}
+            onChangeValue={(marginMm) => onChange({ marginMm })}
+          />
 
           <label className={`${styles.field} ${styles.presetField}`}>
             <span className={styles.fieldLabel}>Modelo</span>
