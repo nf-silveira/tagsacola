@@ -155,19 +155,25 @@ npm run test:run
 
 ## CI/CD e deploy
 
-- **Integração contínua:** `.github/workflows/ci.yml` roda em `push` e `pull_request` para `develop` e `main`, executando `npm ci` e `npm run verify` (lint, tipos, testes e build em sequência — os mesmos comandos que você roda localmente).
+- **Integração contínua:** `.github/workflows/ci.yml` roda em `pull_request` para `main` e `develop`, e em `push` para `main`, executando `npm ci` e `npm run verify` (lint, tipos, testes e build em sequência — os mesmos comandos que você roda localmente).
 - **Gate de qualidade:** o deploy de produção só acontece depois que o workflow `CI` conclui com sucesso na `main`. O `vercel.json` desativa o deploy automático da `main` (`git.deploymentEnabled.main = false`) e `.github/workflows/deploy-production.yml` publica exatamente o commit testado usando a Vercel CLI.
 - **Segredos do deploy:** `VERCEL_TOKEN`, `VERCEL_ORG_ID` e `VERCEL_PROJECT_ID` em *Settings → Secrets and variables → Actions*. Sem eles o job falha com mensagem explícita e a produção permanece na última versão publicada.
-- **Proteção da `main`:** aplique a proteção exigindo PR e o check `npm run verify` (o check tem o nome do job do workflow, não do passo) com `gh` autenticado:
+- **Proteção da `main`** (já aplicada): exige PR e o check `npm run verify` — o check tem o nome do job do workflow, não do passo. Para reaplicar com `gh` autenticado:
 
   ```bash
-  gh api --method PUT repos/nf-silveira/tagsacola/branches/main/protection \
-    -H "Accept: application/vnd.github+json" \
-    -F 'required_status_checks[strict]=true' \
-    -f 'required_status_checks[contexts][]=npm run verify' \
-    -F 'enforce_admins=true' \
-    -F 'required_pull_request_reviews[required_approving_review_count]=0'
+  cat > protection.json <<'JSON'
+  {
+    "required_status_checks": { "strict": true, "contexts": ["npm run verify"] },
+    "enforce_admins": true,
+    "required_pull_request_reviews": { "required_approving_review_count": 0, "dismiss_stale_reviews": true },
+    "restrictions": null
+  }
+  JSON
+  gh api --method PUT repos/nf-silveira/tagsacola/branches/main/protection --input protection.json
+  rm protection.json
   ```
+
+  `restrictions: null` é obrigatório no corpo (sem o campo a API responde `422`); `null` mantém a branch aberta a qualquer PR, apenas com o CI exigido. Com `strict: true`, o PR precisa estar atualizado com a `main` para poder ser mergeado.
 
 - **Produção:** <https://tagsacola.vercel.app>
 
