@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { flushSync } from 'react-dom'
+import { FiGithub } from 'react-icons/fi'
 
 import { Header } from '@/components/Header/Header'
 import { HistoryTable } from '@/components/HistoryTable/HistoryTable'
@@ -180,7 +181,18 @@ export default function Home() {
         </main>
 
         <footer className={styles.footer}>
-          <p>Tag Sacola · Desenvolvido por Nelson Felipe</p>
+          <p>
+            Tag Sacola · Desenvolvido por{' '}
+            <a
+              className={styles.footerLink}
+              href="https://github.com/nf-silveira/tagsacola"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FiGithub aria-hidden="true" />
+              Nelson Felipe
+            </a>
+          </p>
         </footer>
       </div>
 

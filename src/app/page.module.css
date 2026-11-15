@@ -36,9 +36,28 @@
 }
 
 .footer p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
   margin: 0;
   font-size: 0.8125rem;
   color: var(--ef-muted);
+}
+
+.footerLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: 700;
+  color: var(--ef-purple);
+  text-decoration: none;
+}
+
+.footerLink:hover {
+  color: var(--ef-purple-dark);
+  text-decoration: underline;
 }
 
 @media (max-width: 992px) {
