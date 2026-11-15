@@ -84,8 +84,8 @@ Sem Tailwind, sem Lucide, sem bibliotecas pagas e sem APIs externas.
 └─ src/
    ├─ app/                # App Router: layout raiz, página principal e estilos da página
    ├─ components/         # Componentes de UI, cada um com seu CSS Module
-   ├─ domain/             # Contratos e regras puras do negócio (etiquetas, impressão)
-   ├─ hooks/              # Estado reutilizável (formulário, histórico, impressão, conexão)
+   ├─ domain/             # Contratos e regras puras do negócio (etiquetas, impressão, histórico)
+   ├─ hooks/              # Estado reutilizável (formulário, histórico, busca/paginação, impressão, conexão)
    ├─ services/           # Persistência local e impressão
    └─ styles/             # Tokens, base do HTML, tema do Bootstrap e CSS de impressão
 ```
@@ -141,6 +141,8 @@ A suíte usa **Vitest** com **Testing Library** em ambiente `jsdom` e cobre as r
 | --- | --- |
 | `src/domain/label.test.ts` | Total de sacolas, singular/plural, formatação de data e horário, geração de lote com quantidades congeladas |
 | `src/domain/printSettings.test.ts` | Limite de 80 mm, margens consistentes, dimensões inválidas, modelos Padrão e Compacta |
+| `src/domain/history.test.ts` | Busca sem acento/maiúscula, recorte de página, atalhos numerados com "…" e formatação de data/hora do histórico |
+| `src/components/ConfirmDialog/confirmationMessages.test.ts` | Textos do diálogo de exclusão (com e sem número da compra) e de limpeza do histórico |
 | `src/components/PrintableLabel/PrintableLabel.test.tsx` | Sequência "3 de 10", dimensões em mm, campos opcionais omitidos, resumo por categoria, chips vazados, nomes longos |
 | `src/components/OrderForm/OrderForm.test.tsx` | Total derivado, geração bloqueada com zero, preenchimento automático de data/horário, limpeza do formulário |
 | `src/services/storageService.test.ts` | Persistência de preferências e histórico no `localStorage` |
