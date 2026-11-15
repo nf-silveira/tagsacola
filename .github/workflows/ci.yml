@@ -27,14 +27,5 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      - name: Lint
-        run: npm run lint
-
-      - name: Tipos
-        run: npm run typecheck
-
-      - name: Testes
-        run: npm run test:run
-
-      - name: Build
-        run: npm run build
+      - name: Verificar projeto
+        run: npm run verify

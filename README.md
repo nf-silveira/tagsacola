@@ -128,7 +128,8 @@ npm run dev
 | `npm run lint` | Executa o ESLint |
 | `npm run typecheck` | Verifica os tipos com TypeScript |
 | `npm test` | Executa os testes em modo watch |
-| `npm run test:run` | Executa a suíte de testes uma vez (usado no CI) |
+| `npm run test:run` | Executa a suíte de testes uma vez |
+| `npm run verify` | Roda lint, tipos, testes e build em sequência (usado no CI) |
 
 ---
 
@@ -154,7 +155,7 @@ npm run test:run
 
 ## CI/CD e deploy
 
-- **Integração contínua:** `.github/workflows/ci.yml` roda em `push` e `pull_request` para `develop` e `main`, executando `npm ci`, `lint`, `typecheck`, `test:run` e `build`.
+- **Integração contínua:** `.github/workflows/ci.yml` roda em `push` e `pull_request` para `develop` e `main`, executando `npm ci` e `npm run verify` (lint, tipos, testes e build em sequência — os mesmos comandos que você roda localmente).
 - **Gate de qualidade:** o deploy de produção só acontece depois que o workflow `CI` conclui com sucesso na `main`. O `vercel.json` desativa o deploy automático da `main` (`git.deploymentEnabled.main = false`) e `.github/workflows/deploy-production.yml` publica exatamente o commit testado usando a Vercel CLI.
 - **Segredos do deploy:** `VERCEL_TOKEN`, `VERCEL_ORG_ID` e `VERCEL_PROJECT_ID` em *Settings → Secrets and variables → Actions*. Sem eles o job falha com mensagem explícita e a produção permanece na última versão publicada.
 - **Proteção da `main`:** aplique a proteção exigindo PR e o check `Lint, tipos, testes e build` (com `gh` autenticado):
@@ -211,14 +212,14 @@ O projeto é construído em etapas, cada uma verificável por conta própria.
 | 5 | Configurações: modelos, personalização e persistência | ✅ Concluída |
 | 6 | Histórico: salvar, buscar, paginar, editar, excluir e reimprimir | ✅ Concluída |
 | 8 | Testes: unitários e de componente no CI | ✅ Concluída |
-| 9 | Validação visual/PDF e teste físico na Sweda SI-300 | ⏳ Pendente |
+| 9 | Validação visual/PDF e teste físico na Sweda SI-300 | ✅ Concluída |
 
 ---
 
 ## Fluxo de branches
 
 - `develop` — integração contínua; todo trabalho entra aqui primeiro.
-- `main` — versão estável, atualizada por merge de `develop`. Com a proteção de branch aplicada (veja CI/CD), o merge passa a exigir PR e o check do CI verde.
+- `main` — versão estável, recebida apenas por Pull Request de `develop` com o check do CI verde (proteção de branch descrita em CI/CD). Push direto é rejeitado.
 - O deploy de produção é disparado pelo workflow de CD somente após o `CI` passar na `main`.
 
 Commits seguem [Conventional Commits 1.0.0](https://www.conventionalcommits.org/pt-br/) com emoji do tipo, mensagem em inglês e corpo em tópicos.
