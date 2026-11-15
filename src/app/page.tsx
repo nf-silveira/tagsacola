@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { flushSync } from 'react-dom'
-import { FiGithub } from 'react-icons/fi'
 
 import { ConfirmDialog } from '@/components/ConfirmDialog/ConfirmDialog'
 import {
@@ -11,16 +10,12 @@ import {
 } from '@/components/ConfirmDialog/confirmationMessages'
 import { Header } from '@/components/Header/Header'
 import { HistoryTable } from '@/components/HistoryTable/HistoryTable'
+import { Footer } from '@/components/Footer/Footer'
 import { LabelPreview } from '@/components/LabelPreview/LabelPreview'
 import { OrderForm } from '@/components/OrderForm/OrderForm'
+import { PrintArea, type PrintTarget } from '@/components/PrintArea/PrintArea'
 import { PrintSettingsPanel } from '@/components/PrintSettingsPanel/PrintSettingsPanel'
-import { PrintableLabel } from '@/components/PrintableLabel/PrintableLabel'
-import {
-  countBags,
-  createLabelBatch,
-  type LabelBatch,
-  type LabelDraft,
-} from '@/domain/label'
+import { countBags, createLabelBatch, type LabelBatch } from '@/domain/label'
 import { useLabelDraft } from '@/hooks/useLabelDraft'
 import { useLabelHistory } from '@/hooks/useLabelHistory'
 import { useNetworkStatus } from '@/hooks/useNetworkStatus'
@@ -28,17 +23,6 @@ import { usePrintSettings } from '@/hooks/usePrintSettings'
 import { printLabelSheet } from '@/services/printService'
 
 import styles from './page.module.css'
-
-const TEST_LABEL: LabelDraft = {
-  purchaseNumber: null,
-  customerName: 'Etiqueta de teste',
-  date: null,
-  time: null,
-  deliveryMode: null,
-  quantities: { dry: 1, refrigerated: 1, frozen: 1, pack: 1 },
-}
-
-type PrintTarget = 'labels' | 'test' | null
 
 export default function Home() {
   const isOnline = useNetworkStatus()
@@ -178,29 +162,7 @@ export default function Home() {
           />
         </main>
 
-        <footer className={styles.footer}>
-          <p>
-            <span>
-              © 2026{' '}
-              <a className={styles.footerBrandLink} href="#topo">
-                Tag Sacola
-              </a>
-            </span>
-            <span aria-hidden="true">·</span>
-            <span>
-              Desenvolvido por{' '}
-              <a
-                className={styles.footerLink}
-                href="https://github.com/nf-silveira/tagsacola"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FiGithub aria-hidden="true" />
-                Nelson Felipe
-              </a>
-            </span>
-          </p>
-        </footer>
+        <Footer />
       </div>
 
       <ConfirmDialog
@@ -212,27 +174,12 @@ export default function Home() {
         onCancel={() => setPendingAction(null)}
       />
 
-      <div className="print-area" aria-hidden="true">
-        {printTarget === 'test' && (
-          <PrintableLabel
-            data={TEST_LABEL}
-            position={1}
-            total={countBags(TEST_LABEL.quantities)}
-            settings={settings}
-          />
-        )}
-
-        {printTarget === 'labels' &&
-          Array.from({ length: totalBags }, (_, index) => (
-            <PrintableLabel
-              key={`label-${index + 1}`}
-              data={draft}
-              position={index + 1}
-              total={totalBags}
-              settings={settings}
-            />
-          ))}
-      </div>
+      <PrintArea
+        target={printTarget}
+        draft={draft}
+        totalBags={totalBags}
+        settings={settings}
+      />
     </>
   )
 }
