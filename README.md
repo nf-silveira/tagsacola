@@ -6,6 +6,7 @@
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white)
 ![Zod](https://img.shields.io/badge/Zod-4-3E67B1)
 ![License](https://img.shields.io/badge/license-MIT-16B879)
+![CI](https://github.com/nf-silveira/tagsacola/actions/workflows/ci.yml/badge.svg)
 
 > Sua solução de etiquetas sempre que tiver B.O na operação 🚨
 
@@ -22,6 +23,8 @@ O foco não é gestão de pedidos, e sim velocidade, poucos cliques, confiabilid
 - [Estrutura do projeto](#estrutura-do-projeto)
 - [Como executar](#como-executar)
 - [Scripts](#scripts)
+- [Testes automatizados](#testes-automatizados)
+- [CI/CD e deploy](#cicd-e-deploy)
 - [Impressão na Sweda SI-300](#impressão-na-sweda-si-300)
 - [Privacidade dos dados](#privacidade-dos-dados)
 - [Etapas de desenvolvimento](#etapas-de-desenvolvimento)
@@ -125,6 +128,36 @@ npm run dev
 | `npm run start` | Executa o build de produção |
 | `npm run lint` | Executa o ESLint |
 | `npm run typecheck` | Verifica os tipos com TypeScript |
+| `npm test` | Executa os testes em modo watch |
+| `npm run test:run` | Executa a suíte de testes uma vez (usado no CI) |
+
+---
+
+## Testes automatizados
+
+A suíte usa **Vitest** com **Testing Library** em ambiente `jsdom` e cobre as regras que não dependem do navegador nem da impressora:
+
+| Arquivo | O que valida |
+| --- | --- |
+| `src/domain/label.test.ts` | Total de sacolas, singular/plural, formatação de data e horário, geração de lote com quantidades congeladas |
+| `src/domain/printSettings.test.ts` | Limite de 72 mm, margens consistentes, dimensões inválidas, modelos Padrão e Compacta |
+| `src/components/PrintableLabel/PrintableLabel.test.tsx` | Sequência "3 de 10", dimensões em mm, campos opcionais omitidos, resumo por categoria, chips vazados, nomes longos |
+| `src/components/OrderForm/OrderForm.test.tsx` | Total derivado, geração bloqueada com zero, preenchimento automático de data/horário, limpeza do formulário |
+| `src/services/storageService.test.ts` | Persistência de preferências e histórico no `localStorage` |
+
+```bash
+npm run test:run
+```
+
+**Fora do escopo automatizado (por enquanto):** geração de PDF e conferência dimensional. Enquanto não há acesso à Sweda SI-300, a checagem é manual: `Ctrl+P` → *Salvar como PDF*, com papel personalizado de 72 × 100 mm, conferindo se nenhuma etiqueta é cortada ou dividida entre páginas.
+
+---
+
+## CI/CD e deploy
+
+- **Integração contínua:** `.github/workflows/ci.yml` roda em `push` e `pull_request` para `develop` e `main`, executando `npm ci`, `lint`, `typecheck`, `test:run` e `build`.
+- **Deploy:** automático na [Vercel](https://vercel.com) a partir da branch `main`. O `vercel.json` fixa o preset `nextjs`, necessário porque o projeto nasceu como scaffold Vite.
+- **Produção:** <https://tagsacola.vercel.app>
 
 ---
 
@@ -167,7 +200,8 @@ O projeto é construído em etapas, cada uma verificável por conta própria.
 | 5 | Configurações: modelos, personalização e persistência | ✅ Concluída |
 | 6 | Histórico: salvar, editar, duplicar, excluir e reimprimir | ✅ Concluída |
 | 7 | Offline: PWA com Serwist | ⏳ Pendente |
-| 8 | Testes: automatizados, visuais e validação física | ⏳ Pendente |
+| 8 | Testes: unitários e de componente no CI | ✅ Concluída |
+| 9 | Validação visual/PDF e teste físico na Sweda SI-300 | ⏳ Pendente |
 
 ---
 
