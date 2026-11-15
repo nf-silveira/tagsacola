@@ -147,6 +147,8 @@ A suíte usa **Vitest** com **Testing Library** em ambiente `jsdom` e cobre as r
 | `src/components/PrintableLabel/PrintableLabel.test.tsx` | Sequência "3 de 10", dimensões em mm, campos opcionais omitidos, resumo por categoria, chips vazados, nomes longos |
 | `src/components/HistoryTable/HistoryTable.test.tsx` | Estado vazio, busca sem acento na UI, paginação numerada, tamanho de página, limites e ações por linha |
 | `src/components/OrderForm/OrderForm.test.tsx` | Total derivado, geração bloqueada com zero, preenchimento automático de data/horário, limpeza do formulário |
+| `src/components/PrintSettingsPanel/PrintSettingsPanel.test.tsx` | Dimensões exibidas, alteração por campo, erro com `aria-invalid`, modelo escolhido, salvar habilitado por alteração, feedback de salvar/restaurar |
+| `src/components/LabelPreview/LabelPreview.test.tsx` | Estado vazio, impressão de teste disponível, posição da etiqueta, limites e navegação |
 | `src/services/storageService.test.ts` | Persistência de preferências e histórico no `localStorage` |
 
 ```bash

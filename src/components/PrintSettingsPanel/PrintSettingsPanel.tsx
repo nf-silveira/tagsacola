@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { FiRotateCcw, FiSave, FiSettings } from 'react-icons/fi'
 
+import { LabeledField } from '@/components/LabeledField/LabeledField'
 import {
   MAX_PRINT_HEIGHT_MM,
   MAX_PRINT_MARGIN_MM,
@@ -43,8 +44,7 @@ function DimensionField({
   onChangeValue,
 }: DimensionFieldProps) {
   return (
-    <label className={styles.field}>
-      <span className={styles.fieldLabel}>{label}</span>
+    <LabeledField label={label} error={error} className={styles.field}>
       <input
         type="number"
         className={`form-control form-control-sm ${styles.input}`}
@@ -55,12 +55,7 @@ function DimensionField({
         onChange={(event) => onChangeValue(event.target.valueAsNumber)}
         aria-invalid={Boolean(error)}
       />
-      {error && (
-        <span className={styles.error} role="alert">
-          {error}
-        </span>
-      )}
-    </label>
+    </LabeledField>
   )
 }
 
@@ -129,8 +124,10 @@ export function PrintSettingsPanel({
             onChangeValue={(marginMm) => onChange({ marginMm })}
           />
 
-          <label className={`${styles.field} ${styles.presetField}`}>
-            <span className={styles.fieldLabel}>Modelo</span>
+          <LabeledField
+            label="Modelo"
+            className={`${styles.field} ${styles.presetField}`}
+          >
             <select
               className={`form-select form-select-sm ${styles.input}`}
               value={settings.presetId}
@@ -142,7 +139,7 @@ export function PrintSettingsPanel({
                 </option>
               ))}
             </select>
-          </label>
+          </LabeledField>
         </div>
 
         <p className={styles.hint}>
