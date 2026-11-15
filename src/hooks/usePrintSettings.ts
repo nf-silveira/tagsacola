@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState, useSyncExternalStore } from 'react'
 
 import {
+  arePrintSettingsEqual,
   DEFAULT_PRINT_SETTINGS,
   PRINT_PRESETS,
   printSettingsSchema,
@@ -100,7 +101,7 @@ export function usePrintSettings(): UsePrintSettingsResult {
   }, [])
 
   const isDirty = useMemo(
-    () => JSON.stringify(settings) !== JSON.stringify(savedSettings),
+    () => !arePrintSettingsEqual(settings, savedSettings),
     [settings, savedSettings],
   )
 

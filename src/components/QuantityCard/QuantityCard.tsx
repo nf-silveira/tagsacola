@@ -1,8 +1,7 @@
 import type { ChangeEvent } from 'react'
-import type { IconType } from 'react-icons'
 import { FiMinus, FiPlus } from 'react-icons/fi'
-import { FaBagShopping, FaBoxOpen, FaSnowflake, FaTemperatureHalf } from 'react-icons/fa6'
 
+import { BAG_CATEGORY_ICONS } from '@/components/bagCategoryIcons'
 import {
   BAG_CATEGORY_LABELS,
   BAG_CATEGORY_NAMES,
@@ -10,13 +9,6 @@ import {
 } from '@/domain/label'
 
 import styles from './QuantityCard.module.css'
-
-const CATEGORY_ICONS: Record<BagCategory, IconType> = {
-  dry: FaBagShopping,
-  refrigerated: FaTemperatureHalf,
-  frozen: FaSnowflake,
-  pack: FaBoxOpen,
-}
 
 interface QuantityCardProps {
   category: BagCategory
@@ -33,7 +25,7 @@ export function QuantityCard({
   onDecrement,
   onChange,
 }: QuantityCardProps) {
-  const Icon = CATEGORY_ICONS[category]
+  const Icon = BAG_CATEGORY_ICONS[category]
   const categoryName = BAG_CATEGORY_NAMES[category].plural
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
