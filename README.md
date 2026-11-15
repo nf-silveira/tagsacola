@@ -158,13 +158,13 @@ npm run test:run
 - **Integração contínua:** `.github/workflows/ci.yml` roda em `push` e `pull_request` para `develop` e `main`, executando `npm ci` e `npm run verify` (lint, tipos, testes e build em sequência — os mesmos comandos que você roda localmente).
 - **Gate de qualidade:** o deploy de produção só acontece depois que o workflow `CI` conclui com sucesso na `main`. O `vercel.json` desativa o deploy automático da `main` (`git.deploymentEnabled.main = false`) e `.github/workflows/deploy-production.yml` publica exatamente o commit testado usando a Vercel CLI.
 - **Segredos do deploy:** `VERCEL_TOKEN`, `VERCEL_ORG_ID` e `VERCEL_PROJECT_ID` em *Settings → Secrets and variables → Actions*. Sem eles o job falha com mensagem explícita e a produção permanece na última versão publicada.
-- **Proteção da `main`:** aplique a proteção exigindo PR e o check `Lint, tipos, testes e build` (com `gh` autenticado):
+- **Proteção da `main`:** aplique a proteção exigindo PR e o check `npm run verify` (o check tem o nome do job do workflow, não do passo) com `gh` autenticado:
 
   ```bash
   gh api --method PUT repos/nf-silveira/tagsacola/branches/main/protection \
     -H "Accept: application/vnd.github+json" \
     -F 'required_status_checks[strict]=true' \
-    -f 'required_status_checks[contexts][]=Lint, tipos, testes e build' \
+    -f 'required_status_checks[contexts][]=npm run verify' \
     -F 'enforce_admins=true' \
     -F 'required_pull_request_reviews[required_approving_review_count]=0'
   ```
