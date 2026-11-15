@@ -55,13 +55,6 @@
   margin-top: auto;
 }
 
-.optional {
-  font-size: 0.6875rem;
-  font-style: normal;
-  font-weight: 500;
-  color: var(--ef-muted);
-}
-
 .input {
   font-size: 0.875rem;
 }

@@ -1,0 +1,19 @@
+.label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ef-text);
+}
+
+.optional {
+  font-size: 0.6875rem;
+  font-style: normal;
+  font-weight: 500;
+  color: var(--ef-muted);
+}
+
+.error {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ef-danger);
+}

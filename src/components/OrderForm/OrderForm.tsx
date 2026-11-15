@@ -1,7 +1,8 @@
-import type { ChangeEvent, ReactNode } from 'react'
+import type { ChangeEvent } from 'react'
 import { FaBagShopping, FaBroom, FaCartShopping } from 'react-icons/fa6'
 import { FiPrinter } from 'react-icons/fi'
 
+import { LabeledField } from '@/components/LabeledField/LabeledField'
 import { QuantityCard } from '@/components/QuantityCard/QuantityCard'
 import type { IdentificationField } from '@/hooks/useLabelDraft'
 import {
@@ -23,23 +24,6 @@ interface OrderFormProps {
   onChangeQuantity: (category: BagCategory, quantity: number) => void
   onGenerate: () => void
   onClear: () => void
-}
-
-interface FormFieldProps {
-  label: string
-  children: ReactNode
-}
-
-/** Rótulo com o marcador "(opcional)" usado pelos campos de identificação. */
-function FormField({ label, children }: FormFieldProps) {
-  return (
-    <label className={styles.field}>
-      <span className={styles.fieldLabel}>
-        {label} <em className={styles.optional}>(opcional)</em>
-      </span>
-      {children}
-    </label>
-  )
 }
 
 export function OrderForm({
@@ -68,7 +52,7 @@ export function OrderForm({
 
       <div className={styles.panelBody}>
         <div className={styles.fields}>
-          <FormField label="Número da compra">
+          <LabeledField label="Número da compra" optional className={styles.field}>
             <input
               type="text"
               className={`form-control form-control-sm ${styles.input}`}
@@ -77,9 +61,9 @@ export function OrderForm({
               onChange={createFieldHandler('purchaseNumber')}
               placeholder="2026"
             />
-          </FormField>
+          </LabeledField>
 
-          <FormField label="Nome do cliente">
+          <LabeledField label="Nome do cliente" optional className={styles.field}>
             <input
               type="text"
               className={`form-control form-control-sm ${styles.input}`}
@@ -87,25 +71,25 @@ export function OrderForm({
               onChange={createFieldHandler('customerName')}
               placeholder="Fulano da Silva"
             />
-          </FormField>
+          </LabeledField>
 
-          <FormField label="Data">
+          <LabeledField label="Data" optional className={styles.field}>
             <input
               type="date"
               className={`form-control form-control-sm ${styles.input}`}
               value={draft.date ?? ''}
               onChange={createFieldHandler('date')}
             />
-          </FormField>
+          </LabeledField>
 
-          <FormField label="Horário">
+          <LabeledField label="Horário" optional className={styles.field}>
             <input
               type="time"
               className={`form-control form-control-sm ${styles.input}`}
               value={draft.time ?? ''}
               onChange={createFieldHandler('time')}
             />
-          </FormField>
+          </LabeledField>
         </div>
 
         <p className={styles.hint}>
