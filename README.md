@@ -152,7 +152,7 @@ A suíte usa **Vitest** com **Testing Library** em ambiente `jsdom` e cobre as r
 npm run test:run
 ```
 
-**Fora do escopo automatizado (por enquanto):** geração de PDF e conferência dimensional. Enquanto não há acesso à Sweda SI-300, a checagem é manual: `Ctrl+P` → *Salvar como PDF*, com papel personalizado de 80 × 55 mm, conferindo se nenhuma etiqueta é cortada ou dividida entre páginas.
+**Fora do escopo automatizado (por enquanto):** geração de PDF e conferência dimensional. A checagem é manual: `Ctrl+P` → *Salvar como PDF*, com papel personalizado de 80 × 55 mm, conferindo se nenhuma etiqueta é cortada ou dividida entre páginas.
 
 ---
 
@@ -196,8 +196,6 @@ Configuração de referência: [manual do fabricante](https://sweda.com.br/wp-co
 | Dimensões iniciais | 80 × 55 mm, margem interna de 2 mm |
 
 A impressão usa `window.print()` com CSS `@media print`, dimensões em milímetros e uma etiqueta por bloco de impressão, escondendo toda a interface. O navegador **não** comanda o cortador: o corte depende do driver e das configurações de papel no computador.
-
-> **Validação física pendente.** O desenvolvimento acontece sem acesso à impressora. Os testes são feitos por simulação local (proporções, PDF e verificação de transbordo), seguindo o plano de testes interno do projeto. O teste real na Sweda SI-300 continua sendo uma etapa futura.
 
 ---
 
